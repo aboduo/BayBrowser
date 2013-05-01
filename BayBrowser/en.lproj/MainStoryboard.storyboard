@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tod-Wy-sDu">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Side View View Controller-->
+        <scene sceneID="0Oz-Ue-Yeg">
+            <objects>
+                <tableViewController storyboardIdentifier="SideView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NXb-KD-xug" customClass="SideViewViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lgx-1N-qWb">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                        <color key="separatorColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="center" placeholder="Search Torrents" showsCancelButton="YES" id="qxy-sc-b46">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <scopeButtonTitles>
+                                <string>Title</string>
+                                <string>Title</string>
+                            </scopeButtonTitles>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" textLabel="QIf-Hg-MOK" style="IBUITableViewCellStyleDefault" id="Qqh-Fm-BVg">
+                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Other" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QIf-Hg-MOK">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="NXb-KD-xug" id="fzW-5b-9Ad"/>
+                            <outlet property="delegate" destination="NXb-KD-xug" id="g6a-pd-hlC"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="serch" destination="qxy-sc-b46" id="saS-LJ-yn6"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L0r-iJ-FN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-304" y="-67"/>
+        </scene>
+        <!--Posts View-->
+        <scene sceneID="cGb-iM-j1H">
+            <objects>
+                <viewController storyboardIdentifier="Posts" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tod-Wy-sDu" customClass="PostsView" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VGc-jh-1iE">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="odw-bG-5k4">
+                                <color key="backgroundColor" red="0.25171396683673475" green="0.25171396683673475" blue="0.25171396683673475" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="CustomCellj" id="c9T-Qt-nQT">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BYi-q5-Use">
+                                <items>
+                                    <navigationItem id="4Sn-A6-r4r">
+                                        <barButtonItem key="leftBarButtonItem" image="lines@2x.png" id="X9q-yR-EqP">
+                                            <connections>
+                                                <action selector="showLeft:" destination="tod-Wy-sDu" id="wKn-IR-oa8"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BYi-q5-Use" firstAttribute="top" secondItem="VGc-jh-1iE" secondAttribute="top" type="default" id="9D1-OA-d3i"/>
+                            <constraint firstItem="odw-bG-5k4" firstAttribute="leading" secondItem="VGc-jh-1iE" secondAttribute="leading" type="default" id="Egi-DH-v96"/>
+                            <constraint firstItem="BYi-q5-Use" firstAttribute="leading" secondItem="VGc-jh-1iE" secondAttribute="leading" type="default" id="Krc-nU-aY8"/>
+                            <constraint firstItem="BYi-q5-Use" firstAttribute="trailing" secondItem="VGc-jh-1iE" secondAttribute="trailing" type="default" id="O4W-zq-FtQ"/>
+                            <constraint firstItem="odw-bG-5k4" firstAttribute="top" secondItem="BYi-q5-Use" secondAttribute="bottom" type="default" id="lUd-hA-C85"/>
+                            <constraint firstItem="odw-bG-5k4" firstAttribute="bottom" secondItem="VGc-jh-1iE" secondAttribute="bottom" type="default" id="mPr-DJ-w2O"/>
+                            <constraint firstItem="odw-bG-5k4" firstAttribute="trailing" secondItem="VGc-jh-1iE" secondAttribute="trailing" type="default" id="q5F-GC-iWX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bar" destination="BYi-q5-Use" id="WrV-1C-gkO"/>
+                        <outlet property="theTable" destination="odw-bG-5k4" id="PfT-Hn-hjL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZEO-yk-Ibd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-686" y="-81"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="lines@2x.png" width="19" height="15"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
