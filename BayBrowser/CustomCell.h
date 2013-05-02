@@ -13,4 +13,5 @@
 @property (nonatomic, unsafe_unretained) IBOutlet UILabel *seederslabel;
 @property (nonatomic, unsafe_unretained) IBOutlet UILabel *sizeLabel;
 @property (nonatomic, unsafe_unretained) IBOutlet UILabel *uploadedLabel;
+@property (nonatomic) IBOutlet UIButton *descriptionButton;
 @end

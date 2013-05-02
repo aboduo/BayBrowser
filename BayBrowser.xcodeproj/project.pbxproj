@@ -59,6 +59,10 @@
 		5F8498B51716285800CD4690 /* sidebarbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F8498B31716285800CD4690 /* sidebarbg@2x.png */; };
 		5F8498B61716285800CD4690 /* sidebarshadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F8498B41716285800CD4690 /* sidebarshadow@2x.png */; };
 		5F8498BD1716563900CD4690 /* lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F8498BC1716563900CD4690 /* lines@2x.png */; };
+		5FC64F201731ED62002775B8 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC64F1E1731ECD0002775B8 /* libxml2.dylib */; };
+		5FE7613A1731EC7A0020CDED /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761351731EC7A0020CDED /* TFHpple.m */; };
+		5FE7613B1731EC7A0020CDED /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761371731EC7A0020CDED /* TFHppleElement.m */; };
+		5FE7613C1731EC7A0020CDED /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761391731EC7A0020CDED /* XPathQuery.m */; };
 		5FF5F23217238B3A00902E19 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FF5F23117238B3A00902E19 /* Storyboard.storyboard */; };
 		5FF8199B16FEC6D500D69398 /* UIView+JMNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF8199A16FEC6D500D69398 /* UIView+JMNoise.m */; };
 		5FF8199D16FEC74900D69398 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF8199C16FEC74900D69398 /* QuartzCore.framework */; };
@@ -156,6 +160,13 @@
 		5F8498B717162B1100CD4690 /* UIView+Origami.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIView+Origami.h"; path = "../UIView+Origami.h"; sourceTree = "<group>"; };
 		5F8498B817162B1100CD4690 /* UIView+Origami.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIView+Origami.m"; path = "../UIView+Origami.m"; sourceTree = "<group>"; };
 		5F8498BC1716563900CD4690 /* lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lines@2x.png"; sourceTree = "<group>"; };
+		5FC64F1E1731ECD0002775B8 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		5FE761341731EC7A0020CDED /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
+		5FE761351731EC7A0020CDED /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
+		5FE761361731EC7A0020CDED /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
+		5FE761371731EC7A0020CDED /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
+		5FE761381731EC7A0020CDED /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		5FE761391731EC7A0020CDED /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		5FF5F23117238B3A00902E19 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		5FF8199916FEC6D500D69398 /* UIView+JMNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JMNoise.h"; sourceTree = "<group>"; };
 		5FF8199A16FEC6D500D69398 /* UIView+JMNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JMNoise.m"; sourceTree = "<group>"; };
@@ -184,6 +195,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FC64F201731ED62002775B8 /* libxml2.dylib in Frameworks */,
 				5F584E1E172F26BD00CD6F48 /* libz.dylib in Frameworks */,
 				5F15BC7B1706A1BE00373A9B /* MessageUI.framework in Frameworks */,
 				5FF8199D16FEC74900D69398 /* QuartzCore.framework in Frameworks */,
@@ -301,6 +313,7 @@
 		5F7F210316FE4AD200394999 = {
 			isa = PBXGroup;
 			children = (
+				5FE761331731EC6C0020CDED /* html */,
 				5F584E15172F268C00CD6F48 /* TestFlightSDK1.2.4 */,
 				5F46C868170291FD005C27E8 /* JMTabView */,
 				5F15BC511705078300373A9B /* Images */,
@@ -325,6 +338,7 @@
 		5F7F210E16FE4AD200394999 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5FC64F1E1731ECD0002775B8 /* libxml2.dylib */,
 				5F15BC7A1706A1BE00373A9B /* MessageUI.framework */,
 				5FF8199C16FEC74900D69398 /* QuartzCore.framework */,
 				5F7F210F16FE4AD200394999 /* UIKit.framework */,
@@ -387,6 +401,19 @@
 			);
 			name = JSON;
 			path = ../ToTheImgur/JSON;
+			sourceTree = "<group>";
+		};
+		5FE761331731EC6C0020CDED /* html */ = {
+			isa = PBXGroup;
+			children = (
+				5FE761341731EC7A0020CDED /* TFHpple.h */,
+				5FE761351731EC7A0020CDED /* TFHpple.m */,
+				5FE761361731EC7A0020CDED /* TFHppleElement.h */,
+				5FE761371731EC7A0020CDED /* TFHppleElement.m */,
+				5FE761381731EC7A0020CDED /* XPathQuery.h */,
+				5FE761391731EC7A0020CDED /* XPathQuery.m */,
+			);
+			name = html;
 			sourceTree = "<group>";
 		};
 		5FF8199816FEC6D500D69398 /* JMNoise */ = {
@@ -554,6 +581,9 @@
 				5F7EAA2E1703E06D00CA436A /* IIViewDeckController.m in Sources */,
 				5F7EAA2F1703E06D00CA436A /* IIWrapController.m in Sources */,
 				5F34EF071707C7C800416F7B /* SideViewViewController.m in Sources */,
+				5FE7613A1731EC7A0020CDED /* TFHpple.m in Sources */,
+				5FE7613B1731EC7A0020CDED /* TFHppleElement.m in Sources */,
+				5FE7613C1731EC7A0020CDED /* XPathQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,6 +672,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: brian james james (ZUK74JCD8K)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BayBrowser/BayBrowser-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "BayBrowser/BayBrowser-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -663,6 +694,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: brian james james (ZUK74JCD8K)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BayBrowser/BayBrowser-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "BayBrowser/BayBrowser-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (

@@ -13,6 +13,7 @@
 #import "JMSlider.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+Hex.h"
+#import "TFHpple.h"
 
 @interface PostsView ()
 @end
@@ -115,6 +116,8 @@ BOOL themecolorlight;
         cell.sizeLabel.textColor = [UIColor colorWithHex:0x008FF3];
         cell.uploadedLabel.textColor = [UIColor colorWithHex:0x008FF3];
     }
+    cell.descriptionButton.tag = [indexPath row];
+    [cell.descriptionButton addTarget:self action:@selector(buttonCellClicked:) forControlEvents:UIControlEventTouchUpInside];
     if ([arrayposts count] > 0) {
         NSMutableString *svalue = [[NSMutableString alloc] init];
         NSMutableString *lvalue = [[NSMutableString alloc] init];
@@ -651,6 +654,26 @@ BOOL themecolorlight;
     }
     [self changeTheme];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)getDescription:(NSString*)urlstring {
+    NSURL *url = [NSURL URLWithString:urlstring];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    TFHpple *parser = [TFHpple hppleWithHTMLData:data];
+    NSString *path = @"//div[@id='content']/div[@id='main-content']/div/div[@id='detailsouterframe']/div[@id='detailsframe']/div[@id='details']/div[@class='nfo']/pre/text()";
+    NSArray *nodes = [parser searchWithXPathQuery:path];
+    NSMutableString *text = [[NSMutableString alloc] init];
+    for (TFHppleElement *element in nodes) {
+        NSString *postid = [element content];
+        [text appendString:postid];
+    }
+    return text;
+}
+
+-(IBAction)buttonCellClicked:(id)sender
+{
+    int h = ((UIButton *) sender).tag;
+    NSLog(@"%@", [arrayposts objectAtIndex:(NSInteger)h]);
 }
 
 @end
