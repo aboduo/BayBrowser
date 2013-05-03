@@ -59,6 +59,8 @@
 		5F8498B51716285800CD4690 /* sidebarbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F8498B31716285800CD4690 /* sidebarbg@2x.png */; };
 		5F8498B61716285800CD4690 /* sidebarshadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F8498B41716285800CD4690 /* sidebarshadow@2x.png */; };
 		5F8498BD1716563900CD4690 /* lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F8498BC1716563900CD4690 /* lines@2x.png */; };
+		5F84A1CB17333B5B000CDA93 /* detailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F84A1CA17333B5B000CDA93 /* detailsView.m */; };
+		5F84A1CE17333E6E000CDA93 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F84A1CD17333E6E000CDA93 /* MBProgressHUD.m */; };
 		5FC64F201731ED62002775B8 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC64F1E1731ECD0002775B8 /* libxml2.dylib */; };
 		5FE7613A1731EC7A0020CDED /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761351731EC7A0020CDED /* TFHpple.m */; };
 		5FE7613B1731EC7A0020CDED /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761371731EC7A0020CDED /* TFHppleElement.m */; };
@@ -160,6 +162,10 @@
 		5F8498B717162B1100CD4690 /* UIView+Origami.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIView+Origami.h"; path = "../UIView+Origami.h"; sourceTree = "<group>"; };
 		5F8498B817162B1100CD4690 /* UIView+Origami.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIView+Origami.m"; path = "../UIView+Origami.m"; sourceTree = "<group>"; };
 		5F8498BC1716563900CD4690 /* lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lines@2x.png"; sourceTree = "<group>"; };
+		5F84A1C917333B5B000CDA93 /* detailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detailsView.h; sourceTree = "<group>"; };
+		5F84A1CA17333B5B000CDA93 /* detailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = detailsView.m; sourceTree = "<group>"; };
+		5F84A1CC17333E6E000CDA93 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		5F84A1CD17333E6E000CDA93 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		5FC64F1E1731ECD0002775B8 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		5FE761341731EC7A0020CDED /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
 		5FE761351731EC7A0020CDED /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
@@ -362,8 +368,10 @@
 				5F34EF051707C7C800416F7B /* SideViewViewController.h */,
 				5F34EF061707C7C800416F7B /* SideViewViewController.m */,
 				5F7C763917231BDC00D57C8F /* Posts.xib */,
-				5F7F211616FE4AD200394999 /* Supporting Files */,
 				5FF5F23117238B3A00902E19 /* Storyboard.storyboard */,
+				5F84A1C917333B5B000CDA93 /* detailsView.h */,
+				5F84A1CA17333B5B000CDA93 /* detailsView.m */,
+				5F7F211616FE4AD200394999 /* Supporting Files */,
 			);
 			path = BayBrowser;
 			sourceTree = "<group>";
@@ -371,6 +379,8 @@
 		5F7F211616FE4AD200394999 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5F84A1CC17333E6E000CDA93 /* MBProgressHUD.h */,
+				5F84A1CD17333E6E000CDA93 /* MBProgressHUD.m */,
 				5F584E1D172F26BD00CD6F48 /* libz.dylib */,
 				5F8498B717162B1100CD4690 /* UIView+Origami.h */,
 				5F8498B817162B1100CD4690 /* UIView+Origami.m */,
@@ -584,6 +594,8 @@
 				5FE7613A1731EC7A0020CDED /* TFHpple.m in Sources */,
 				5FE7613B1731EC7A0020CDED /* TFHppleElement.m in Sources */,
 				5FE7613C1731EC7A0020CDED /* XPathQuery.m in Sources */,
+				5F84A1CB17333B5B000CDA93 /* detailsView.m in Sources */,
+				5F84A1CE17333E6E000CDA93 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

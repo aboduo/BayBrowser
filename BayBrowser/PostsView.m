@@ -14,6 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+Hex.h"
 #import "TFHpple.h"
+#import "detailsView.h"
 
 @interface PostsView ()
 @end
@@ -673,7 +674,11 @@ BOOL themecolorlight;
 -(IBAction)buttonCellClicked:(id)sender
 {
     int h = ((UIButton *) sender).tag;
-    NSLog(@"%@", [arrayposts objectAtIndex:(NSInteger)h]);
+    NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/%@", [ids objectAtIndex:(NSInteger)h], [arrayposts objectAtIndex:(NSInteger)h]];
+    NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    detailsView *next = [self.storyboard instantiateViewControllerWithIdentifier:@"details"];
+    [next setURL:url];
+    [self presentModalViewController:next animated:YES];
 }
 
 @end
