@@ -37,6 +37,7 @@
 }
 
 - (NSString *)getDescription:(NSString*)urlstring {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSURL *url = [NSURL URLWithString:urlstring];
     NSData *data = [NSData dataWithContentsOfURL:url];
     TFHpple *parser = [TFHpple hppleWithHTMLData:data];
@@ -47,6 +48,7 @@
         NSString *postid = [element content];
         [texts appendString:postid];
     }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     return texts;
 }
 @end

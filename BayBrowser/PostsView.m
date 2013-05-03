@@ -117,9 +117,7 @@ BOOL themecolorlight;
         cell.sizeLabel.textColor = [UIColor colorWithHex:0x008FF3];
         cell.uploadedLabel.textColor = [UIColor colorWithHex:0x008FF3];
     }
-    cell.descriptionButton.tag = [indexPath row];
-    [cell.descriptionButton addTarget:self action:@selector(buttonCellClicked:) forControlEvents:UIControlEventTouchUpInside];
-    if ([arrayposts count] > 0) {
+        if ([arrayposts count] > 0) {
         NSMutableString *svalue = [[NSMutableString alloc] init];
         NSMutableString *lvalue = [[NSMutableString alloc] init];
         if ([[seeders objectAtIndex:indexPath.row] intValue] > 999) {
@@ -561,6 +559,11 @@ BOOL themecolorlight;
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self removeSideSwipeView:YES];
+    NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/%@", [ids objectAtIndex:indexPath.row], [arrayposts objectAtIndex:indexPath.row]];
+    NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    detailsView *next = [self.storyboard instantiateViewControllerWithIdentifier:@"details"];
+    [next setURL:url];
+    [self presentModalViewController:next animated:YES];
     return indexPath;
 }
 
@@ -669,16 +672,6 @@ BOOL themecolorlight;
         [text appendString:postid];
     }
     return text;
-}
-
--(IBAction)buttonCellClicked:(id)sender
-{
-    int h = ((UIButton *) sender).tag;
-    NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/%@", [ids objectAtIndex:(NSInteger)h], [arrayposts objectAtIndex:(NSInteger)h]];
-    NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    detailsView *next = [self.storyboard instantiateViewControllerWithIdentifier:@"details"];
-    [next setURL:url];
-    [self presentModalViewController:next animated:YES];
 }
 
 @end
