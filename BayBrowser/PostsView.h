@@ -51,6 +51,7 @@
 - (void)sortBy:(NSInteger *)index;
 - (void)first;
 - (void)changeTheme;
+- (void)setCrap;
 - (NSString *)getDescription:(NSString*)urlstring;
 
 @end

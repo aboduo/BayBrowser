@@ -15,6 +15,8 @@
 #import "UIColor+Hex.h"
 #import "TFHpple.h"
 #import "detailsView.h"
+#import "AFNetworking.h"
+#import "ChromeProgressBar.h"
 
 @interface PostsView ()
 @end
@@ -117,7 +119,7 @@ BOOL themecolorlight;
         cell.sizeLabel.textColor = [UIColor colorWithHex:0x008FF3];
         cell.uploadedLabel.textColor = [UIColor colorWithHex:0x008FF3];
     }
-        if ([arrayposts count] > 0) {
+    if ([arrayposts count] > 0) {
         NSMutableString *svalue = [[NSMutableString alloc] init];
         NSMutableString *lvalue = [[NSMutableString alloc] init];
         if ([[seeders objectAtIndex:indexPath.row] intValue] > 999) {
@@ -165,7 +167,6 @@ BOOL themecolorlight;
 
 - (void)first {
     appDelegate.loadingSomething = YES;
-    [self setStatus:@"Loading..."];
     UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
     v.backgroundColor = [UIColor darkGrayColor];
     [theTable setTableFooterView:v];
@@ -174,79 +175,39 @@ BOOL themecolorlight;
     JMSlider *slider = [JMSlider sliderWithFrame:sliderFrame centerTitle:@"more" leftTitle:nil rightTitle:nil delegate:self];
     [slider setLoading:YES];
     [self.view addSubview:slider];
+    ChromeProgressBar *chromeBar = [[ChromeProgressBar alloc] initWithFrame:CGRectMake(0.0f, 40.0f, self.view.bounds.size.width, 4.0f)];
+    [self.view addSubview:chromeBar];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSString *url = [NSString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=all"];
         appDelegate.QUERY = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=all"];
         NSString *search = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *url2 = [NSURL URLWithString:search];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        NSString *json = [NSString stringWithContentsOfURL:url2 encoding:NSUTF8StringEncoding error:nil];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        SBJsonParser *parser = [[SBJsonParser alloc] init];
-        NSDictionary *loaded = [parser objectWithString:json];
-        for (NSDictionary *current in loaded) {
-            [arrayposts addObject:[current objectForKey:@"name"]];
-            [seeders addObject:[current objectForKey:@"seeders"]];
-            [size addObject:[current objectForKey:@"size"]];
-            [uplo addObject:[current objectForKey:@"uploaded"]];
-            [ids addObject:[current objectForKey:@"id"]];
-            [leechers addObject:[current objectForKey:@"leechers"]];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            appDelegate.loadingSomething = NO;
-            [slider setLoading:NO];
-            slider.hidden = YES;
-            CGRect sliderFrame2 = CGRectMake(0, 0, 320, 78);
-            JMSlider *slider2 = [JMSlider sliderWithFrame:sliderFrame2 centerTitle:@"more" leftTitle:nil rightTitle:nil delegate:self];
-            if (appDelegate.more) {
-                [slider2 setCenterExecuteBlock:^{
-                    [slider2 setLoading:YES];
-                    [self removeSideSwipeView:YES];
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                        appDelegate.loadingSomething = YES;
-                        appDelegate.page++;
-                        NSString *unformat = [NSString stringWithFormat:@"%@%@", appDelegate.URL, appDelegate.QUERY];
-                        NSString *search = [unformat stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                        NSURL *url = [NSURL URLWithString:search];
-                        NSString *json = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-                        SBJsonParser *parser = [[SBJsonParser alloc] init];
-                        NSDictionary *loaded = [parser objectWithString:json];
-                        for (NSDictionary * current in loaded) {
-                            [arrayposts addObject:[current objectForKey:@"name"]];
-                            [seeders addObject:[current objectForKey:@"seeders"]];
-                            [size addObject:[current objectForKey:@"size"]];
-                            [uplo addObject:[current objectForKey:@"uploaded"]];
-                            [ids addObject:[current objectForKey:@"id"]];
-                            [leechers addObject:[current objectForKey:@"leechers"]];
-                        }
-                        NSArray *copy = [arrayposts copy];
-                        NSInteger index = [copy count] - 1;
-                        for (id object in [copy reverseObjectEnumerator]) {
-                            if ([arrayposts indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
-                                [arrayposts removeObjectAtIndex:index];
-                                [seeders removeObjectAtIndex:index];
-                                [size removeObjectAtIndex:index];
-                                [uplo removeObjectAtIndex:index];
-                                [leechers removeObjectAtIndex:index];
-                                [ids removeObjectAtIndex:index];
-                            }
-                            index--;
-                        }
-                        appDelegate.loadingSomething = NO;
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [slider2 setLoading:NO];
-                            [theTable reloadData];
-                        });
-                    });
-                }];
+        NSMutableString *json = [[NSMutableString alloc] init];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url2];
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            [json setString:[NSString stringWithFormat:@"%@", JSON]];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            for (NSDictionary *current in JSON) {
+                [arrayposts addObject:[current objectForKey:@"name"]];
+                [seeders addObject:[current objectForKey:@"seeders"]];
+                [size addObject:[current objectForKey:@"size"]];
+                [uplo addObject:[current objectForKey:@"uploaded"]];
+                [ids addObject:[current objectForKey:@"id"]];
+                [leechers addObject:[current objectForKey:@"leechers"]];
             }
-            if (appDelegate.more) {
-                [theTable setTableFooterView:slider2];
-                [theTable setCanCancelContentTouches:NO];
-            }
-            [theTable reloadData];
-            [theTable setContentOffset:CGPointMake(0, 44) animated:YES];
-        });
+            [self setCrap];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [slider removeFromSuperview];
+            });
+        } failure:nil];
+        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [chromeBar setProgress:(float)totalBytesRead / totalBytesExpectedToRead animated:YES];
+            });
+        }];
+        [operation start];
     });
     [TestFlight passCheckpoint:@"Loaded Info"];
 }
@@ -290,59 +251,9 @@ BOOL themecolorlight;
             [leechers addObject:[current objectForKey:@"leechers"]];
         }
         appDelegate.loadingSomething = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            CGRect sliderFrame2 = CGRectMake(0, 0, 320, 78);
-            JMSlider *slider2 = [JMSlider sliderWithFrame:sliderFrame2 centerTitle:@"more" leftTitle:nil rightTitle:nil delegate:self];
-            if (appDelegate.more) {
-                [slider2 setCenterExecuteBlock:^{
-                    [slider2 setLoading:YES];
-                    [self removeSideSwipeView:YES];
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                        appDelegate.page++;
-                        appDelegate.loadingSomething = YES;
-                        NSString *unformat = [NSString stringWithFormat:@"%@%@/%d", appDelegate.URL, appDelegate.QUERY, (int)appDelegate.page];
-                        NSString *search = [unformat stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                        NSURL *url = [NSURL URLWithString:search];
-                        NSString *json = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-                        SBJsonParser *parser = [[SBJsonParser alloc] init];
-                        NSDictionary *loaded = [parser objectWithString:json];
-                        for (NSDictionary * current in loaded) {
-                            [arrayposts addObject:[current objectForKey:@"name"]];
-                            [seeders addObject:[current objectForKey:@"seeders"]];
-                            [size addObject:[current objectForKey:@"size"]];
-                            [uplo addObject:[current objectForKey:@"uploaded"]];
-                            [ids addObject:[current objectForKey:@"id"]];
-                            [leechers addObject:[current objectForKey:@"leechers"]];
-                        }
-                        NSArray *copy = [arrayposts copy];
-                        NSInteger index = [copy count] - 1;
-                        for (id object in [copy reverseObjectEnumerator]) {
-                            if ([arrayposts indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
-                                [arrayposts removeObjectAtIndex:index];
-                                [seeders removeObjectAtIndex:index];
-                                [size removeObjectAtIndex:index];
-                                [uplo removeObjectAtIndex:index];
-                                [leechers removeObjectAtIndex:index];
-                            }
-                            index--;
-                        }
-                        appDelegate.loadingSomething = YES;
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [slider2 setLoading:NO];
-                            [theTable reloadData];
-                        });
-                    });
-                }];
-            }
-            if (appDelegate.more) {
-                [theTable setTableFooterView:slider2];
-                [theTable setCanCancelContentTouches:NO];
-            }
-            [self changeTheme];
-            [theTable reloadData];
-            [theTable setContentOffset:CGPointMake(0, 44) animated:YES];
-        });
+        [self setCrap];
     });
+
     [TestFlight passCheckpoint:@"Loaded Info2"];
 }
 
@@ -585,7 +496,7 @@ BOOL themecolorlight;
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController didCloseViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
     appDelegate.deckController.panningMode = 0;
     if (appDelegate.reload) {
-    [self sortBy:0];
+        [self sortBy:0];
     }
     appDelegate.reload = NO;
 }
@@ -660,7 +571,7 @@ BOOL themecolorlight;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (NSString *)getDescription:(NSString*)urlstring {
+- (NSString *)getDescription:(NSString *)urlstring {
     NSURL *url = [NSURL URLWithString:urlstring];
     NSData *data = [NSData dataWithContentsOfURL:url];
     TFHpple *parser = [TFHpple hppleWithHTMLData:data];
@@ -672,6 +583,60 @@ BOOL themecolorlight;
         [text appendString:postid];
     }
     return text;
+}
+
+- (void)setCrap {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CGRect sliderFrame2 = CGRectMake(0, 0, 320, 78);
+        JMSlider *slider2 = [JMSlider sliderWithFrame:sliderFrame2 centerTitle:@"more" leftTitle:nil rightTitle:nil delegate:self];
+        if (appDelegate.more) {
+            [slider2 setCenterExecuteBlock:^{
+                [slider2 setLoading:YES];
+                [self removeSideSwipeView:YES];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                    appDelegate.page++;
+                    appDelegate.loadingSomething = YES;
+                    NSString *unformat = [NSString stringWithFormat:@"%@%@/%d", appDelegate.URL, appDelegate.QUERY, (int)appDelegate.page];
+                    NSString *search = [unformat stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    NSURL *url = [NSURL URLWithString:search];
+                    NSString *json = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+                    SBJsonParser *parser = [[SBJsonParser alloc] init];
+                    NSDictionary *loaded = [parser objectWithString:json];
+                    for (NSDictionary * current in loaded) {
+                        [arrayposts addObject:[current objectForKey:@"name"]];
+                        [seeders addObject:[current objectForKey:@"seeders"]];
+                        [size addObject:[current objectForKey:@"size"]];
+                        [uplo addObject:[current objectForKey:@"uploaded"]];
+                        [ids addObject:[current objectForKey:@"id"]];
+                        [leechers addObject:[current objectForKey:@"leechers"]];
+                    }
+                    NSArray *copy = [arrayposts copy];
+                    NSInteger index = [copy count] - 1;
+                    for (id object in [copy reverseObjectEnumerator]) {
+                        if ([arrayposts indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
+                            [arrayposts removeObjectAtIndex:index];
+                            [seeders removeObjectAtIndex:index];
+                            [size removeObjectAtIndex:index];
+                            [uplo removeObjectAtIndex:index];
+                            [leechers removeObjectAtIndex:index];
+                        }
+                        index--;
+                    }
+                    appDelegate.loadingSomething = NO;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [slider2 setLoading:NO];
+                        [theTable reloadData];
+                    });
+                });
+            }];
+        }
+        if (appDelegate.more) {
+            [theTable setTableFooterView:slider2];
+            [theTable setCanCancelContentTouches:NO];
+        }
+        [theTable reloadData];
+        [theTable setContentOffset:CGPointMake(0, 44) animated:YES];
+    });
 }
 
 @end

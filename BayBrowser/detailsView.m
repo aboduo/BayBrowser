@@ -9,6 +9,7 @@
 #import "detailsView.h"
 #import "TFHpple.h"
 #import "MBProgressHUD.h"
+#import "AFNetworking.h"
 
 @interface detailsView ()
 
