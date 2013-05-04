@@ -78,7 +78,7 @@ BOOL themecolorlight;
     buttons = [[NSMutableArray alloc] initWithCapacity:[buttonData count]];
     appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?/"];
     appDelegate.label = [NSMutableString stringWithFormat:@"Top Torrents"];
-    [self changeTheme];
+    [self changeTheme:YES];
     [self setupSideSwipeView];
     [TestFlight passCheckpoint:@"Finished launch"];
 }
@@ -183,11 +183,8 @@ BOOL themecolorlight;
         NSString *search = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *url2 = [NSURL URLWithString:search];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        NSMutableString *json = [[NSMutableString alloc] init];
         NSURLRequest *request = [NSURLRequest requestWithURL:url2];
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            [json setString:[NSString stringWithFormat:@"%@", JSON]];
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             for (NSDictionary *current in JSON) {
                 [arrayposts addObject:[current objectForKey:@"name"]];
                 [seeders addObject:[current objectForKey:@"seeders"]];
@@ -199,6 +196,8 @@ BOOL themecolorlight;
             [self setCrap];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [slider removeFromSuperview];
+                appDelegate.loadingSomething = NO;
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             });
         } failure:nil];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
@@ -216,7 +215,6 @@ BOOL themecolorlight;
     [appDelegate.deckController.leftController.view endEditing:YES];
     [self.view endEditing:YES];
     [self performSelectorOnMainThread:@selector(removeSideSwipeView:) withObject:nil waitUntilDone:YES];
-    [self setStatus:@"Loading..."];
     appDelegate.loadingSomething = YES;
     [tabView setSelectedIndex:(int)index];
     [arrayposts removeAllObjects];
@@ -224,6 +222,9 @@ BOOL themecolorlight;
     [size removeAllObjects];
     [ids removeAllObjects];
     [leechers removeAllObjects];
+    ChromeProgressBar *chromeBar = [[ChromeProgressBar alloc] initWithFrame:CGRectMake(0.0f, 40.0f, self.view.bounds.size.width, 4.0f)];
+    [self.view addSubview:chromeBar];
+    [self changeTheme:NO];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSMutableString *url;
         if ((int)index == 0) {
@@ -238,22 +239,28 @@ BOOL themecolorlight;
         NSString *search = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *url2 = [NSURL URLWithString:search];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        NSString *json = [NSString stringWithContentsOfURL:url2 encoding:NSUTF8StringEncoding error:nil];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        SBJsonParser *parser = [[SBJsonParser alloc] init];
-        NSDictionary *loaded = [parser objectWithString:json];
-        for (NSDictionary *current in loaded) {
-            [arrayposts addObject:[current objectForKey:@"name"]];
-            [seeders addObject:[current objectForKey:@"seeders"]];
-            [size addObject:[current objectForKey:@"size"]];
-            [uplo addObject:[current objectForKey:@"uploaded"]];
-            [ids addObject:[current objectForKey:@"id"]];
-            [leechers addObject:[current objectForKey:@"leechers"]];
-        }
-        appDelegate.loadingSomething = NO;
-        [self setCrap];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url2];
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            for (NSDictionary *current in JSON) {
+                [arrayposts addObject:[current objectForKey:@"name"]];
+                [seeders addObject:[current objectForKey:@"seeders"]];
+                [size addObject:[current objectForKey:@"size"]];
+                [uplo addObject:[current objectForKey:@"uploaded"]];
+                [ids addObject:[current objectForKey:@"id"]];
+                [leechers addObject:[current objectForKey:@"leechers"]];
+            }
+            [self setCrap];
+            appDelegate.loadingSomething = NO;
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        } failure:nil];
+        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [chromeBar setProgress:(float)totalBytesRead / totalBytesExpectedToRead animated:YES];
+            });
+        }];
+        [operation start];
     });
-
     [TestFlight passCheckpoint:@"Loaded Info2"];
 }
 
@@ -524,7 +531,7 @@ BOOL themecolorlight;
 - (void)refreshView {
 }
 
-- (void)changeTheme {
+- (void)changeTheme:(BOOL)fullTheme {
     if (themecolorlight) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
         label.backgroundColor = [UIColor clearColor];
@@ -554,8 +561,10 @@ BOOL themecolorlight;
         self.theTable.backgroundColor = [UIColor darkGrayColor];
         _bar.tintColor = [UIColor blackColor];
     }
-    [theTable reloadData];
-    [self.theTable reloadData];
+    if (fullTheme) {
+        [theTable reloadData];
+        [self.theTable reloadData];
+    }
 }
 
 - (void)switcharoo {
@@ -567,7 +576,7 @@ BOOL themecolorlight;
         themecolorlight = YES;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"theme"];
     }
-    [self changeTheme];
+    [self changeTheme:YES];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -586,6 +595,8 @@ BOOL themecolorlight;
 }
 
 - (void)setCrap {
+    ChromeProgressBar *chromeBar = [[ChromeProgressBar alloc] initWithFrame:CGRectMake(0.0f, 40.0f, self.view.bounds.size.width, 4.0f)];
+    [self.view addSubview:chromeBar];
     dispatch_async(dispatch_get_main_queue(), ^{
         CGRect sliderFrame2 = CGRectMake(0, 0, 320, 78);
         JMSlider *slider2 = [JMSlider sliderWithFrame:sliderFrame2 centerTitle:@"more" leftTitle:nil rightTitle:nil delegate:self];
@@ -599,34 +610,43 @@ BOOL themecolorlight;
                     NSString *unformat = [NSString stringWithFormat:@"%@%@/%d", appDelegate.URL, appDelegate.QUERY, (int)appDelegate.page];
                     NSString *search = [unformat stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                     NSURL *url = [NSURL URLWithString:search];
-                    NSString *json = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-                    SBJsonParser *parser = [[SBJsonParser alloc] init];
-                    NSDictionary *loaded = [parser objectWithString:json];
-                    for (NSDictionary * current in loaded) {
-                        [arrayposts addObject:[current objectForKey:@"name"]];
-                        [seeders addObject:[current objectForKey:@"seeders"]];
-                        [size addObject:[current objectForKey:@"size"]];
-                        [uplo addObject:[current objectForKey:@"uploaded"]];
-                        [ids addObject:[current objectForKey:@"id"]];
-                        [leechers addObject:[current objectForKey:@"leechers"]];
-                    }
-                    NSArray *copy = [arrayposts copy];
-                    NSInteger index = [copy count] - 1;
-                    for (id object in [copy reverseObjectEnumerator]) {
-                        if ([arrayposts indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
-                            [arrayposts removeObjectAtIndex:index];
-                            [seeders removeObjectAtIndex:index];
-                            [size removeObjectAtIndex:index];
-                            [uplo removeObjectAtIndex:index];
-                            [leechers removeObjectAtIndex:index];
+                    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                        for (NSDictionary * current in JSON) {
+                            [arrayposts addObject:[current objectForKey:@"name"]];
+                            [seeders addObject:[current objectForKey:@"seeders"]];
+                            [size addObject:[current objectForKey:@"size"]];
+                            [uplo addObject:[current objectForKey:@"uploaded"]];
+                            [ids addObject:[current objectForKey:@"id"]];
+                            [leechers addObject:[current objectForKey:@"leechers"]];
                         }
-                        index--;
-                    }
-                    appDelegate.loadingSomething = NO;
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [slider2 setLoading:NO];
-                        [theTable reloadData];
-                    });
+                        NSArray *copy = [arrayposts copy];
+                        NSInteger index = [copy count] - 1;
+                        for (id object in [copy reverseObjectEnumerator]) {
+                            if ([arrayposts indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
+                                [arrayposts removeObjectAtIndex:index];
+                                [seeders removeObjectAtIndex:index];
+                                [size removeObjectAtIndex:index];
+                                [uplo removeObjectAtIndex:index];
+                                [leechers removeObjectAtIndex:index];
+                            }
+                            index--;
+                        }
+                        appDelegate.loadingSomething = NO;
+                        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [slider2 setLoading:NO];
+                            [theTable reloadData];
+                        });
+                    } failure:nil];
+                    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
+                    {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [chromeBar setProgress:(float)totalBytesRead / totalBytesExpectedToRead animated:YES];
+                        });
+                    }];
+                    [operation start];
                 });
             }];
         }

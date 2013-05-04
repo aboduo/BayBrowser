@@ -50,7 +50,7 @@
 - (void)refreshView;
 - (void)sortBy:(NSInteger *)index;
 - (void)first;
-- (void)changeTheme;
+- (void)changeTheme:(BOOL)fullTheme;
 - (void)setCrap;
 - (NSString *)getDescription:(NSString*)urlstring;
 

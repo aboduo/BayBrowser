@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BayBrowser/PostsView.m"
-         timestampString = "389329432.407278"
+         timestampString = "389331887.415325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "642"
-         endingLineNumber = "642"
+         startingLineNumber = "662"
+         endingLineNumber = "662"
          landmarkName = "@implementation PostsView"
          landmarkType = "3">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BayBrowser/PostsView.m"
-         timestampString = "389329432.407278"
+         timestampString = "389331887.415325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "616"
-         endingLineNumber = "616"
+         startingLineNumber = "600"
+         endingLineNumber = "600"
          landmarkName = "-setCrap"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,50 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BayBrowser/PostsView.m"
-         timestampString = "389329432.407278"
+         timestampString = "389331887.415325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "589"
-         endingLineNumber = "589"
+         startingLineNumber = "189"
+         endingLineNumber = "189"
+         landmarkName = "-first"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BayBrowser/PostsView.m"
+         timestampString = "389331887.415325"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "188"
+         endingLineNumber = "188"
+         landmarkName = "-first"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BayBrowser/PostsView.m"
+         timestampString = "389330091.687751"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "87"
+         endingLineNumber = "87"
+         landmarkName = "-tabView:didSelectTabAtIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BayBrowser/PostsView.m"
+         timestampString = "389331887.415325"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "647"
+         endingLineNumber = "647"
          landmarkName = "-setCrap"
          landmarkType = "5">
       </FileBreakpoint>
@@ -203,12 +242,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BayBrowser/PostsView.m"
-         timestampString = "389329432.407278"
+         timestampString = "389331887.415325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "192"
-         endingLineNumber = "192"
-         landmarkName = "-first"
+         startingLineNumber = "646"
+         endingLineNumber = "646"
+         landmarkName = "-setCrap"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -216,12 +255,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BayBrowser/PostsView.m"
-         timestampString = "389329432.407278"
+         timestampString = "389331887.415325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "191"
-         endingLineNumber = "191"
-         landmarkName = "-first"
+         startingLineNumber = "648"
+         endingLineNumber = "648"
+         landmarkName = "-setCrap"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
