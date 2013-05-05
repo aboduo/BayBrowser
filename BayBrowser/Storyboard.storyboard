@@ -30,13 +30,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wXa-0I-ZAQ" firstAttribute="leading" secondItem="74z-sI-bDH" secondAttribute="leading" type="default" id="0me-Uc-OU1"/>
-                            <constraint firstItem="wXa-0I-ZAQ" firstAttribute="top" secondItem="74z-sI-bDH" secondAttribute="top" type="default" id="3vB-7k-FdU"/>
-                            <constraint firstItem="qF9-Le-wuC" firstAttribute="trailing" secondItem="74z-sI-bDH" secondAttribute="trailing" type="default" id="RCF-KN-lsN"/>
-                            <constraint firstItem="qF9-Le-wuC" firstAttribute="bottom" secondItem="74z-sI-bDH" secondAttribute="bottom" type="default" id="b8p-ma-idl"/>
-                            <constraint firstItem="qF9-Le-wuC" firstAttribute="leading" secondItem="74z-sI-bDH" secondAttribute="leading" type="default" id="hoB-W7-6zq"/>
-                            <constraint firstItem="wXa-0I-ZAQ" firstAttribute="trailing" secondItem="74z-sI-bDH" secondAttribute="trailing" type="default" id="mcy-jq-Uwi"/>
-                            <constraint firstItem="qF9-Le-wuC" firstAttribute="top" secondItem="wXa-0I-ZAQ" secondAttribute="bottom" type="default" id="o6w-Mq-GjC"/>
+                            <constraint firstItem="wXa-0I-ZAQ" firstAttribute="trailing" secondItem="74z-sI-bDH" secondAttribute="trailing" type="default" id="2Z3-Ob-1wf"/>
+                            <constraint firstItem="wXa-0I-ZAQ" firstAttribute="leading" secondItem="74z-sI-bDH" secondAttribute="leading" type="default" id="4PW-ER-exw"/>
+                            <constraint firstItem="qF9-Le-wuC" firstAttribute="bottom" secondItem="74z-sI-bDH" secondAttribute="bottom" type="default" id="DSe-MG-Zkb"/>
+                            <constraint firstItem="qF9-Le-wuC" firstAttribute="top" secondItem="wXa-0I-ZAQ" secondAttribute="bottom" type="default" id="URd-uj-wHM"/>
+                            <constraint firstItem="qF9-Le-wuC" firstAttribute="trailing" secondItem="74z-sI-bDH" secondAttribute="trailing" type="default" id="vD4-Go-xgg"/>
+                            <constraint firstItem="wXa-0I-ZAQ" firstAttribute="top" secondItem="74z-sI-bDH" secondAttribute="top" type="default" id="xmk-4x-dRZ"/>
+                            <constraint firstItem="qF9-Le-wuC" firstAttribute="leading" secondItem="74z-sI-bDH" secondAttribute="leading" type="default" id="yam-8A-r3f"/>
                         </constraints>
                         <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                         <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -99,11 +99,37 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkK-2r-Eyd">
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFV-VA-zYs">
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9M-ol-1Q7" customClass="AFImagePager">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="223" id="Qea-tN-bJ7"/>
+                                        </constraints>
+                                    </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seb-3Z-KU8">
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="282" id="Tox-Ub-p7J"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="c9M-ol-1Q7" firstAttribute="trailing" secondItem="lFV-VA-zYs" secondAttribute="trailing" type="default" id="1pa-Xb-ZQm"/>
+                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="centerX" secondItem="lFV-VA-zYs" secondAttribute="centerX" type="default" id="1v2-w2-4YB"/>
+                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="trailing" secondItem="lFV-VA-zYs" secondAttribute="trailing" type="default" id="RPH-9n-ozZ"/>
+                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="leading" secondItem="lFV-VA-zYs" secondAttribute="leading" type="default" id="bNb-Er-BIE"/>
+                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="top" secondItem="lFV-VA-zYs" secondAttribute="top" constant="222" id="bj8-0i-Y5m"/>
+                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="bottom" secondItem="lFV-VA-zYs" secondAttribute="bottom" type="default" id="lI7-Sv-GI6"/>
+                                    <constraint firstItem="c9M-ol-1Q7" firstAttribute="leading" secondItem="lFV-VA-zYs" secondAttribute="leading" type="default" id="qAc-Xs-KAp"/>
+                                    <constraint firstItem="c9M-ol-1Q7" firstAttribute="top" secondItem="lFV-VA-zYs" secondAttribute="top" type="default" id="szc-DG-5at"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="MSP-RX-hGn" id="In5-Cb-Cq2"/>
+                                </connections>
+                            </scrollView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IW1-aI-uOD">
                                 <items>
                                     <navigationItem title="Description" id="s6o-Ms-BOO">
@@ -116,19 +142,21 @@
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="DkK-2r-Eyd" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="4Tc-Af-ivO"/>
-                            <constraint firstItem="DkK-2r-Eyd" firstAttribute="bottom" secondItem="Tad-nT-Den" secondAttribute="bottom" type="default" id="5BJ-Tg-n2i"/>
-                            <constraint firstItem="IW1-aI-uOD" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="B3r-6n-1m1"/>
-                            <constraint firstItem="IW1-aI-uOD" firstAttribute="top" secondItem="Tad-nT-Den" secondAttribute="top" type="default" id="FSq-Ie-aVd"/>
-                            <constraint firstItem="IW1-aI-uOD" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="Toe-94-SOm"/>
-                            <constraint firstItem="DkK-2r-Eyd" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="p65-aE-BQn"/>
-                            <constraint firstItem="DkK-2r-Eyd" firstAttribute="top" secondItem="IW1-aI-uOD" secondAttribute="bottom" type="default" id="yJr-cp-kus"/>
+                            <constraint firstItem="IW1-aI-uOD" firstAttribute="top" secondItem="Tad-nT-Den" secondAttribute="top" type="default" id="3GD-1O-s7N"/>
+                            <constraint firstItem="IW1-aI-uOD" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="M3H-bu-z9m"/>
+                            <constraint firstItem="IW1-aI-uOD" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="WY2-ZN-IQd"/>
+                            <constraint firstItem="lFV-VA-zYs" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="Zv4-dA-wS1"/>
+                            <constraint firstItem="lFV-VA-zYs" firstAttribute="top" secondItem="IW1-aI-uOD" secondAttribute="bottom" type="default" id="eHo-7b-ZqY"/>
+                            <constraint firstItem="lFV-VA-zYs" firstAttribute="bottom" secondItem="Tad-nT-Den" secondAttribute="bottom" type="default" id="eRd-xW-aL9"/>
+                            <constraint firstItem="lFV-VA-zYs" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="xhu-At-LOk"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="text" destination="DkK-2r-Eyd" id="WVh-dm-T4g"/>
+                        <outlet property="pictureView" destination="c9M-ol-1Q7" id="dw1-e1-LTK"/>
+                        <outlet property="scoller" destination="lFV-VA-zYs" id="al4-ON-9ta"/>
+                        <outlet property="text" destination="seb-3Z-KU8" id="6Jt-fg-5jo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J5g-xV-VvR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -140,6 +168,13 @@
         <image name="lines@2x.png" width="19" height="15"/>
     </resources>
     <classes>
+        <class className="AFImagePager" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AFImagePager.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dataSource"/>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
@@ -147,6 +182,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostsView.h"/>
             <relationships>
                 <relationship kind="action" name="showLeft:"/>
+                <relationship kind="action" name="touchUpInsideAction:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="bar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="theTable" candidateClass="UITableView"/>
@@ -163,6 +199,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/detailsView.h"/>
             <relationships>
                 <relationship kind="action" name="close:"/>
+                <relationship kind="outlet" name="pictureView" candidateClass="AFImagePager"/>
+                <relationship kind="outlet" name="scoller" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="text" candidateClass="UITextView"/>
             </relationships>
         </class>

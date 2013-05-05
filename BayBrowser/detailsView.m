@@ -15,41 +15,85 @@
 
 @end
 
+NSMutableArray *urlsForView;
 @implementation detailsView
+MBProgressHUD *hud;
 @synthesize text;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    _scoller.delegate = self;
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    urlsForView = [[NSMutableArray alloc] init];
+    _pictureView.dataSource = self;
+    _pictureView.delegate = self;
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading";
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        _textString = [self getDescription:_URL];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            text.text = _textString;
-        });
-    });
+    [self getDescription:_URL];
 }
 
 - (IBAction)close:(id)sender {
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (NSString *)getDescription:(NSString*)urlstring {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSURL *url = [NSURL URLWithString:urlstring];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    TFHpple *parser = [TFHpple hppleWithHTMLData:data];
-    NSString *path = @"//div[@id='content']/div[@id='main-content']/div/div[@id='detailsouterframe']/div[@id='detailsframe']/div[@id='details']/div[@class='nfo']/pre/text()";
-    NSArray *nodes = [parser searchWithXPathQuery:path];
+- (NSString *)getDescription:(NSString *)urlstring {
     NSMutableString *texts = [[NSMutableString alloc] init];
-    for (TFHppleElement *element in nodes) {
-        NSString *postid = [element content];
-        [texts appendString:postid];
-    }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlstring]];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        NSData *newData = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
+        TFHpple *parser = [TFHpple hppleWithHTMLData:newData];
+        NSString *path = @"//pre/text()";
+        NSArray *nodes = [parser searchWithXPathQuery:path];
+        NSArray *urlArray = [parser searchWithXPathQuery:@"//pre/a"];
+        for (TFHppleElement * element in nodes) {
+            NSString *postid = [element content];
+            if (postid) {
+                [texts appendString:postid];
+            }
+        }
+        NSMutableArray *screenshotURLs = [[NSMutableArray alloc] initWithCapacity:0];
+        for (int i = 1; i < urlArray.count; i++) {
+            [screenshotURLs addObject:urlArray[i]];
+        }
+        for (TFHppleElement * element in screenshotURLs) {
+            NSString *postid = [element text];
+            if (postid) {
+                if (([postid rangeOfString:@".png"].location != NSNotFound) || ([postid rangeOfString:@".jpg"].location != NSNotFound)) {
+                NSString *parsed = [postid stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                [urlsForView addObject:parsed];
+                }
+            }
+        }
+        _pictureView.pageControl.currentPageIndicatorTintColor = [UIColor lightGrayColor];
+        _pictureView.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+        _pictureView.backgroundColor = [UIColor darkGrayColor];
+        [_pictureView reloadData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        text.text = texts;
+    } failure:nil];
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
+    {
+        if ((float)totalBytesExpectedToRead > 0) {
+            //  [hud setProgress:(float)totalBytesRead / totalBytesExpectedToRead];
+        } else {
+            hud.mode = MBProgressHUDModeIndeterminate;
+        }
+    }];
+    [operation start];
     return texts;
 }
+
+- (NSMutableArray *) arrayWithImageUrlStrings
+{
+    return urlsForView;
+}
+
+- (UIViewContentMode) contentModeForImage:(NSUInteger)image
+{
+    return UIViewContentModeScaleToFill;
+}
+
 @end

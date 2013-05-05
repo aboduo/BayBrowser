@@ -62,6 +62,9 @@
 		5F8498BD1716563900CD4690 /* lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F8498BC1716563900CD4690 /* lines@2x.png */; };
 		5F84A1CB17333B5B000CDA93 /* detailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F84A1CA17333B5B000CDA93 /* detailsView.m */; };
 		5F84A1CE17333E6E000CDA93 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F84A1CD17333E6E000CDA93 /* MBProgressHUD.m */; };
+		5FB858851735D25A00CDC03A /* AFImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB858821735D25A00CDC03A /* AFImagePager.m */; };
+		5FB858861735D25A00CDC03A /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB858831735D25A00CDC03A /* KICamera.png */; };
+		5FB858871735D25A00CDC03A /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB858841735D25A00CDC03A /* KICamera@2x.png */; };
 		5FC64F201731ED62002775B8 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC64F1E1731ECD0002775B8 /* libxml2.dylib */; };
 		5FE7613A1731EC7A0020CDED /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761351731EC7A0020CDED /* TFHpple.m */; };
 		5FE7613B1731EC7A0020CDED /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761371731EC7A0020CDED /* TFHppleElement.m */; };
@@ -178,6 +181,10 @@
 		5F84A1CA17333B5B000CDA93 /* detailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = detailsView.m; sourceTree = "<group>"; };
 		5F84A1CC17333E6E000CDA93 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		5F84A1CD17333E6E000CDA93 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		5FB858811735D25A00CDC03A /* AFImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImagePager.h; sourceTree = "<group>"; };
+		5FB858821735D25A00CDC03A /* AFImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImagePager.m; sourceTree = "<group>"; };
+		5FB858831735D25A00CDC03A /* KICamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KICamera.png; sourceTree = "<group>"; };
+		5FB858841735D25A00CDC03A /* KICamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KICamera@2x.png"; sourceTree = "<group>"; };
 		5FC64F1E1731ECD0002775B8 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		5FE761341731EC7A0020CDED /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
 		5FE761351731EC7A0020CDED /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
@@ -359,6 +366,7 @@
 		5F7F210316FE4AD200394999 = {
 			isa = PBXGroup;
 			children = (
+				5FB858801735D25A00CDC03A /* AFImagePager */,
 				5F257F951734B048006CF3D1 /* ChromeProgressBar */,
 				5FFDB496173470E90040C663 /* AFNetworking */,
 				5FE761331731EC6C0020CDED /* html */,
@@ -453,6 +461,17 @@
 			);
 			name = JSON;
 			path = ../ToTheImgur/JSON;
+			sourceTree = "<group>";
+		};
+		5FB858801735D25A00CDC03A /* AFImagePager */ = {
+			isa = PBXGroup;
+			children = (
+				5FB858811735D25A00CDC03A /* AFImagePager.h */,
+				5FB858821735D25A00CDC03A /* AFImagePager.m */,
+				5FB858831735D25A00CDC03A /* KICamera.png */,
+				5FB858841735D25A00CDC03A /* KICamera@2x.png */,
+			);
+			path = AFImagePager;
 			sourceTree = "<group>";
 		};
 		5FE761331731EC6C0020CDED /* html */ = {
@@ -618,6 +637,8 @@
 				5FF5F23217238B3A00902E19 /* Storyboard.storyboard in Resources */,
 				5F584E1B172F268C00CD6F48 /* README.md in Resources */,
 				5F584E1C172F268C00CD6F48 /* release_notes.md in Resources */,
+				5FB858861735D25A00CDC03A /* KICamera.png in Resources */,
+				5FB858871735D25A00CDC03A /* KICamera@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,6 +695,7 @@
 				5FFDB4B1173470E90040C663 /* AFXMLRequestOperation.m in Sources */,
 				5FFDB4B2173470E90040C663 /* UIImageView+AFNetworking.m in Sources */,
 				5F257F981734B048006CF3D1 /* ChromeProgressBar.m in Sources */,
+				5FB858851735D25A00CDC03A /* AFImagePager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

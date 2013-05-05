@@ -7,129 +7,12 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "ViewDeck/IIViewDeckController.m"
-         timestampString = "388205092.049132"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "810"
-         endingLineNumber = "810"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ViewDeck/IIViewDeckController.m"
-         timestampString = "388205131.828161"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "813"
-         endingLineNumber = "813"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ViewDeck/IIViewDeckController.m"
-         timestampString = "388205132.398154"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "814"
-         endingLineNumber = "814"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ViewDeck/IIViewDeckController.m"
-         timestampString = "388205133.233314"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "815"
-         endingLineNumber = "815"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ViewDeck/IIViewDeckController.m"
-         timestampString = "388205134.372067"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "816"
-         endingLineNumber = "816"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ViewDeck/IIViewDeckController.m"
-         timestampString = "388205134.778079"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "818"
-         endingLineNumber = "818"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ViewDeck/IIViewDeckController.m"
-         timestampString = "388205135.25603"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "819"
-         endingLineNumber = "819"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ViewDeck/IIViewDeckController.m"
-         timestampString = "388205135.69407"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "820"
-         endingLineNumber = "820"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ViewDeck/IIViewDeckController.m"
-         timestampString = "388205136.108752"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "821"
-         endingLineNumber = "821"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "BayBrowser/detailsView.m"
-         timestampString = "389324888.765557"
+         timestampString = "389407995.023112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "42"
-         endingLineNumber = "42"
+         startingLineNumber = "49"
+         endingLineNumber = "49"
          landmarkName = "-getDescription:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,7 +21,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BayBrowser/detailsView.m"
-         timestampString = "389324888.765557"
+         timestampString = "389407995.023112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "52"
@@ -151,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BayBrowser/detailsView.m"
-         timestampString = "389324888.765557"
+         timestampString = "389407995.023112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "43"
-         endingLineNumber = "43"
+         startingLineNumber = "51"
+         endingLineNumber = "51"
          landmarkName = "-getDescription:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -163,104 +46,143 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BayBrowser/PostsView.m"
-         timestampString = "389331887.415325"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389407995.023112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "662"
-         endingLineNumber = "662"
-         landmarkName = "@implementation PostsView"
-         landmarkType = "3">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BayBrowser/PostsView.m"
-         timestampString = "389331887.415325"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "600"
-         endingLineNumber = "600"
-         landmarkName = "-setCrap"
+         startingLineNumber = "54"
+         endingLineNumber = "54"
+         landmarkName = "-getDescription:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BayBrowser/PostsView.m"
-         timestampString = "389331887.415325"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389407995.023112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "189"
-         endingLineNumber = "189"
-         landmarkName = "-first"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
+         landmarkName = "-getDescription:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BayBrowser/PostsView.m"
-         timestampString = "389331887.415325"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389407995.023112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "188"
-         endingLineNumber = "188"
-         landmarkName = "-first"
+         startingLineNumber = "68"
+         endingLineNumber = "68"
+         landmarkName = "-getDescription:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BayBrowser/PostsView.m"
-         timestampString = "389330091.687751"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389407995.023112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "87"
-         endingLineNumber = "87"
-         landmarkName = "-tabView:didSelectTabAtIndex:"
+         startingLineNumber = "66"
+         endingLineNumber = "66"
+         landmarkName = "-getDescription:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BayBrowser/PostsView.m"
-         timestampString = "389331887.415325"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389407995.023112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "647"
-         endingLineNumber = "647"
-         landmarkName = "-setCrap"
+         startingLineNumber = "63"
+         endingLineNumber = "63"
+         landmarkName = "-getDescription:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BayBrowser/PostsView.m"
-         timestampString = "389331887.415325"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389408976.546914"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "646"
-         endingLineNumber = "646"
-         landmarkName = "-setCrap"
+         startingLineNumber = "89"
+         endingLineNumber = "89"
+         landmarkName = "-arrayWithImageUrlStrings"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BayBrowser/PostsView.m"
-         timestampString = "389331887.415325"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389408976.546914"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "648"
-         endingLineNumber = "648"
-         landmarkName = "-setCrap"
+         startingLineNumber = "94"
+         endingLineNumber = "94"
+         landmarkName = "-contentModeForImage:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389408976.546914"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
+         landmarkName = "-arrayWithImageUrlStrings"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389408976.546914"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "96"
+         endingLineNumber = "96"
+         landmarkName = "-contentModeForImage:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389407995.023112"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
+         landmarkName = "-getDescription:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BayBrowser/detailsView.m"
+         timestampString = "389407995.023112"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "75"
+         endingLineNumber = "75"
+         landmarkName = "-getDescription:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

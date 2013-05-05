@@ -476,7 +476,7 @@ BOOL themecolorlight;
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self removeSideSwipeView:YES];
+//    [self removeSideSwipeView:YES];
     NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/%@", [ids objectAtIndex:indexPath.row], [arrayposts objectAtIndex:indexPath.row]];
     NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     detailsView *next = [self.storyboard instantiateViewControllerWithIdentifier:@"details"];
@@ -602,7 +602,7 @@ BOOL themecolorlight;
         JMSlider *slider2 = [JMSlider sliderWithFrame:sliderFrame2 centerTitle:@"more" leftTitle:nil rightTitle:nil delegate:self];
         if (appDelegate.more) {
             [slider2 setCenterExecuteBlock:^{
-                [slider2 setLoading:YES];
+               [slider2 setLoading:YES];
                 [self removeSideSwipeView:YES];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                     appDelegate.page++;
