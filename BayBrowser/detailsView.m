@@ -10,6 +10,7 @@
 #import "TFHpple.h"
 #import "MBProgressHUD.h"
 #import "AFNetworking.h"
+#import "CommentsView.h"
 
 @interface detailsView ()
 
@@ -23,6 +24,9 @@ MBProgressHUD *hud;
 - (void)viewDidLoad {
     [super viewDidLoad];
     _scoller.delegate = self;
+ //   _pictureView = [[AFImagePager alloc] initWithFrame:CGRectMake(0, 0, 320, 223)];
+ //   [self.view addSubview:_pictureView];
+    [_scoller setScrollsToTop:YES];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     urlsForView = [[NSMutableArray alloc] init];
     _pictureView.dataSource = self;
@@ -73,6 +77,11 @@ MBProgressHUD *hud;
         [_pictureView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         text.text = texts;
+      //  [_pictureView removeFromSuperview];
+        CGRect frame = text.frame;
+        frame.size.height = frame.size.height + 200;
+        text.frame = frame;
+        [text updateConstraints];
     } failure:nil];
     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
     {
@@ -94,6 +103,16 @@ MBProgressHUD *hud;
 - (UIViewContentMode) contentModeForImage:(NSUInteger)image
 {
     return UIViewContentModeScaleToFill;
+}
+
+- (IBAction)comments:(id)sender {
+    CommentsView *currentView = [self.storyboard instantiateViewControllerWithIdentifier:@"comments"];
+    currentView.view.frame = CGRectMake(0, 0, 320, 460);
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.8];
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft  forView:self.view cache:YES];
+    [self.view addSubview:currentView.view];
+    [UIView commitAnimations];
 }
 
 @end

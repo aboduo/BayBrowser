@@ -16,5 +16,6 @@
 @property NSString *textString;
 @property NSString *URL;
 - (IBAction)close:(id)sender;
+- (IBAction)comments:(id)sender;
 - (NSString *)getDescription:(NSString*)urlstring;
 @end
