@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentsView : UIViewController <UITableViewDataSource, UITableViewDelegate>
-
+@interface CommentsView : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+    
+}
+@property IBOutlet UITableView *table;
+- (IBAction)done:(id)sender;
 @end
