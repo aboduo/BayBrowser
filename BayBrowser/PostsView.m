@@ -80,6 +80,11 @@ BOOL themecolorlight;
     appDelegate.label = [NSMutableString stringWithFormat:@"Top Torrents"];
     [self changeTheme:YES];
     [self setupSideSwipeView];
+    bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0, 412, 320, 48)];
+    bannerAd.adUnitID = @"a1518868d91e152";
+    bannerAd.rootViewController = self;
+    [self.view addSubview:bannerAd];
+    [bannerAd loadRequest:[GADRequest request]];
     [TestFlight passCheckpoint:@"Finished launch"];
 }
 

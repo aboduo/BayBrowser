@@ -14,6 +14,7 @@
 #import <MessageUI/MFMessageComposeViewController.h>
 #import "IIViewDeckController.h"
 #import "AppDelegate.h"
+#import "GADBannerView.h"
 
 @interface PostsView : UIViewController <UITableViewDataSource, UITableViewDelegate, JMTabViewDelegate, JMSliderDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate, IIViewDeckControllerDelegate>
 {
@@ -21,6 +22,7 @@
     NSArray *buttonData;
     NSMutableArray *buttons;
     UIActionSheet *menu;
+    GADBannerView *bannerAd;
 }
 
 @property NSDictionary *posts;

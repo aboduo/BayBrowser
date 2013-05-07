@@ -49,7 +49,7 @@
     return @"Categories";
     }
     else {
-        return @"Version 1.0b6";
+        return @"Version 1.0b7";
     }
 }
 
