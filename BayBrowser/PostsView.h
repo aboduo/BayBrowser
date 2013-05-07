@@ -54,6 +54,7 @@
 - (void)first;
 - (void)changeTheme:(BOOL)fullTheme;
 - (void)setCrap;
+- (void)verifyPro;
 - (NSString *)getDescription:(NSString*)urlstring;
 
 @end

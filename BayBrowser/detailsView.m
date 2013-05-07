@@ -24,8 +24,6 @@ MBProgressHUD *hud;
 - (void)viewDidLoad {
     [super viewDidLoad];
     _scoller.delegate = self;
- //   _pictureView = [[AFImagePager alloc] initWithFrame:CGRectMake(0, 0, 320, 223)];
- //   [self.view addSubview:_pictureView];
     [_scoller setScrollsToTop:YES];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     urlsForView = [[NSMutableArray alloc] init];
@@ -42,11 +40,9 @@ MBProgressHUD *hud;
 
 - (NSString *)getDescription:(NSString *)urlstring {
     NSMutableString *texts = [[NSMutableString alloc] init];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlstring]];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         NSData *newData = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
         TFHpple *parser = [TFHpple hppleWithHTMLData:newData];
         NSString *path = @"//pre/text()";

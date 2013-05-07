@@ -41,6 +41,8 @@ BOOL themecolorlight;
     if (lastRead == nil) {
         NSDictionary *appDefaults  = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], dateKey, nil];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"theme"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"pro"];
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"key"];
         [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -80,11 +82,16 @@ BOOL themecolorlight;
     appDelegate.label = [NSMutableString stringWithFormat:@"Top Torrents"];
     [self changeTheme:YES];
     [self setupSideSwipeView];
-    bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0, 412, 320, 48)];
-    bannerAd.adUnitID = @"a1518868d91e152";
-    bannerAd.rootViewController = self;
-    [self.view addSubview:bannerAd];
-    [bannerAd loadRequest:[GADRequest request]];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"pro"]) {
+        bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - GAD_SIZE_320x50.height, GAD_SIZE_320x50.width, GAD_SIZE_320x50.height)];
+        bannerAd.adUnitID = @"a1518868d91e152";
+        bannerAd.rootViewController = self;
+        [self.view addSubview:bannerAd];
+        [bannerAd loadRequest:[GADRequest request]];
+    }
+    else {
+        [self verifyPro];
+    }
     [TestFlight passCheckpoint:@"Finished launch"];
 }
 
@@ -187,7 +194,6 @@ BOOL themecolorlight;
         appDelegate.QUERY = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=all"];
         NSString *search = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *url2 = [NSURL URLWithString:search];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         NSURLRequest *request = [NSURLRequest requestWithURL:url2];
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             for (NSDictionary *current in JSON) {
@@ -202,7 +208,6 @@ BOOL themecolorlight;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [slider removeFromSuperview];
                 appDelegate.loadingSomething = NO;
-                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             });
         } failure:nil];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
@@ -243,7 +248,6 @@ BOOL themecolorlight;
         }
         NSString *search = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *url2 = [NSURL URLWithString:search];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         NSURLRequest *request = [NSURLRequest requestWithURL:url2];
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             for (NSDictionary *current in JSON) {
@@ -256,7 +260,6 @@ BOOL themecolorlight;
             }
             [self setCrap];
             appDelegate.loadingSomething = NO;
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         } failure:nil];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
         {
@@ -481,7 +484,6 @@ BOOL themecolorlight;
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [self removeSideSwipeView:YES];
     NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/%@", [ids objectAtIndex:indexPath.row], [arrayposts objectAtIndex:indexPath.row]];
     NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     detailsView *next = [self.storyboard instantiateViewControllerWithIdentifier:@"details"];
@@ -607,7 +609,7 @@ BOOL themecolorlight;
         JMSlider *slider2 = [JMSlider sliderWithFrame:sliderFrame2 centerTitle:@"more" leftTitle:nil rightTitle:nil delegate:self];
         if (appDelegate.more) {
             [slider2 setCenterExecuteBlock:^{
-               [slider2 setLoading:YES];
+                [slider2 setLoading:YES];
                 [self removeSideSwipeView:YES];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                     appDelegate.page++;
@@ -616,7 +618,6 @@ BOOL themecolorlight;
                     NSString *search = [unformat stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                     NSURL *url = [NSURL URLWithString:search];
                     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
                     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                         for (NSDictionary * current in JSON) {
                             [arrayposts addObject:[current objectForKey:@"name"]];
@@ -639,7 +640,6 @@ BOOL themecolorlight;
                             index--;
                         }
                         appDelegate.loadingSomething = NO;
-                        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [slider2 setLoading:NO];
                             [theTable reloadData];
@@ -664,4 +664,42 @@ BOOL themecolorlight;
     });
 }
 
+- (void)verifyPro {
+    NSString *key = [[NSUserDefaults standardUserDefaults] valueForKey:@"pro"];
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ethanarbuckle.com/activation/php?udid=%@&key=%@", [[UIDevice currentDevice] uniqueIdentifier], key]];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([[NSString stringWithFormat:@"%@", responseObject] isEqual:@"accepted"]) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"pro"];
+            [[NSUserDefaults standardUserDefaults] setValue:key forKey:@"key"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [bannerAd removeFromSuperview];
+        } else {
+            bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - GAD_SIZE_320x50.height, GAD_SIZE_320x50.width, GAD_SIZE_320x50.height)];
+            bannerAd.adUnitID = @"a1518868d91e152";
+            bannerAd.rootViewController = self;
+            [self.view addSubview:bannerAd];
+            [bannerAd loadRequest:[GADRequest request]];
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"pro"];
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"key"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            UIAlertView *noActiveAlert = [[UIAlertView alloc] initWithTitle:@"Activation Error!" message:@"Failed to activate BayBrowser. Pro is disabled" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [noActiveAlert show];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - GAD_SIZE_320x50.height, GAD_SIZE_320x50.width, GAD_SIZE_320x50.height)];
+        bannerAd.adUnitID = @"a1518868d91e152";
+        bannerAd.rootViewController = self;
+        [self.view addSubview:bannerAd];
+        [bannerAd loadRequest:[GADRequest request]];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"pro"];
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"key"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        UIAlertView *noActiveAlert = [[UIAlertView alloc] initWithTitle:@"Activation Error!" message:@"Failed to activate BayBrowser. Pro is disabled" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [noActiveAlert show];
+    }];
+    [operation start];
+}
 @end
