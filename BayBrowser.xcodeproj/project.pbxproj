@@ -22,6 +22,9 @@
 		5F257F981734B048006CF3D1 /* ChromeProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F257F971734B048006CF3D1 /* ChromeProgressBar.m */; };
 		5F34EF071707C7C800416F7B /* SideViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F34EF061707C7C800416F7B /* SideViewViewController.m */; };
 		5F34EF091707E27C00416F7B /* pbi.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F34EF081707E27C00416F7B /* pbi.jpg */; };
+		5F3EE93717387C5000EB1855 /* CommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3EE93617387C5000EB1855 /* CommentsCell.m */; };
+		5F3EE93917387C7300EB1855 /* CommentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F3EE93817387C7300EB1855 /* CommentsCell.xib */; };
+		5F3EE93B17388AE600EB1855 /* noImageAvailable.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F3EE93A17388AE600EB1855 /* noImageAvailable.jpg */; };
 		5F46C87F170291FD005C27E8 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F46C86B170291FD005C27E8 /* UIColor+Hex.m */; };
 		5F46C880170291FD005C27E8 /* UIView+InnerShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F46C86D170291FD005C27E8 /* UIView+InnerShadow.m */; };
 		5F46C881170291FD005C27E8 /* UIView+Positioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F46C86F170291FD005C27E8 /* UIView+Positioning.m */; };
@@ -111,6 +114,10 @@
 		5F34EF051707C7C800416F7B /* SideViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideViewViewController.h; sourceTree = "<group>"; };
 		5F34EF061707C7C800416F7B /* SideViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideViewViewController.m; sourceTree = "<group>"; };
 		5F34EF081707E27C00416F7B /* pbi.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pbi.jpg; sourceTree = "<group>"; };
+		5F3EE93517387C5000EB1855 /* CommentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsCell.h; sourceTree = "<group>"; };
+		5F3EE93617387C5000EB1855 /* CommentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsCell.m; sourceTree = "<group>"; };
+		5F3EE93817387C7300EB1855 /* CommentsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsCell.xib; sourceTree = "<group>"; };
+		5F3EE93A17388AE600EB1855 /* noImageAvailable.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noImageAvailable.jpg; sourceTree = "<group>"; };
 		5F46C86A170291FD005C27E8 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		5F46C86B170291FD005C27E8 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		5F46C86C170291FD005C27E8 /* UIView+InnerShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+InnerShadow.h"; sourceTree = "<group>"; };
@@ -259,6 +266,7 @@
 		5F15BC511705078300373A9B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5F3EE93A17388AE600EB1855 /* noImageAvailable.jpg */,
 				5F8498BC1716563900CD4690 /* lines@2x.png */,
 				5F8498B31716285800CD4690 /* sidebarbg@2x.png */,
 				5F8498B41716285800CD4690 /* sidebarshadow@2x.png */,
@@ -426,6 +434,9 @@
 				5F84A1CA17333B5B000CDA93 /* detailsView.m */,
 				5F4DBEE41736173A001D2A2B /* CommentsView.h */,
 				5F4DBEE51736173A001D2A2B /* CommentsView.m */,
+				5F3EE93517387C5000EB1855 /* CommentsCell.h */,
+				5F3EE93617387C5000EB1855 /* CommentsCell.m */,
+				5F3EE93817387C7300EB1855 /* CommentsCell.xib */,
 				5F7F211616FE4AD200394999 /* Supporting Files */,
 			);
 			path = BayBrowser;
@@ -644,6 +655,8 @@
 				5F584E1C172F268C00CD6F48 /* release_notes.md in Resources */,
 				5FB858861735D25A00CDC03A /* KICamera.png in Resources */,
 				5FB858871735D25A00CDC03A /* KICamera@2x.png in Resources */,
+				5F3EE93917387C7300EB1855 /* CommentsCell.xib in Resources */,
+				5F3EE93B17388AE600EB1855 /* noImageAvailable.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,6 +715,7 @@
 				5F257F981734B048006CF3D1 /* ChromeProgressBar.m in Sources */,
 				5FB858851735D25A00CDC03A /* AFImagePager.m in Sources */,
 				5F4DBEE61736173A001D2A2B /* CommentsView.m in Sources */,
+				5F3EE93717387C5000EB1855 /* CommentsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

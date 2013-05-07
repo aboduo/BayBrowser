@@ -9,9 +9,12 @@
 #import "CommentsView.h"
 #import "TFHpple.h"
 #import "AFNetworking.h"
+#import "CommentsCell.h"
+#import "MBProgressHUD.h"
 
 @interface CommentsView () {
     NSMutableArray *comments;
+    MBProgressHUD *hud;
 }
 @end
 
@@ -20,6 +23,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Loading";
     _table.dataSource = self;
     _table.delegate = self;
     comments = [[NSMutableArray alloc] init];
@@ -37,15 +43,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = [comments objectAtIndex:indexPath.row];
+    static NSString *simpleTableIdentifier = @"CommentsCell";
+    CommentsCell *cell = (CommentsCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    cell.text.text = [[[comments objectAtIndex:indexPath.row] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
     return cell;
 }
 
 - (void)getComments {
-    NSString *torrentURL = @"http://thepiratebay.sx/torrent/8433464";
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:torrentURL]];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:_URL]];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSData *data = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
@@ -55,23 +64,32 @@
             NSArray *aarr = [element childrenWithTagName:@"div"];
             for (TFHppleElement *hi in aarr) {
                 NSMutableString *plainText = [[NSMutableString alloc] initWithFormat:@"%@",[hi text]];
-                if ([plainText length] > 0) {
+                if ([[plainText stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 1) {
                     NSArray *claases = [hi childrenWithTagName:@"a"];
                     for (TFHppleElement *link in claases) {
-                        [plainText appendString:[NSMutableString stringWithFormat:@"%@", [link text]]];
+                        [plainText appendString:[NSMutableString stringWithFormat:@" %@", [link text]]];
                     }
                 }
+                if ([[plainText stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 2)
                 [comments addObject:plainText];
             }
         }
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        _table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         [_table reloadData];
     } failure:nil];
     [operation start];
 }
 
 - (IBAction)done:(id)sender {
-#warning Doesnt dismiss anything, set it all to modal. 
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *str = [comments objectAtIndex:indexPath.row];
+    CGSize size = [str sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:UILineBreakModeWordWrap];
+    return size.height+4;
 }
 
 @end

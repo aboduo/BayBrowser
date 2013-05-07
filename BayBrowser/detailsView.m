@@ -77,7 +77,6 @@ MBProgressHUD *hud;
         [_pictureView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         text.text = texts;
-      //  [_pictureView removeFromSuperview];
         CGRect frame = text.frame;
         frame.size.height = frame.size.height + 200;
         text.frame = frame;
@@ -85,11 +84,7 @@ MBProgressHUD *hud;
     } failure:nil];
     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
     {
-        if ((float)totalBytesExpectedToRead > 0) {
-            //  [hud setProgress:(float)totalBytesRead / totalBytesExpectedToRead];
-        } else {
             hud.mode = MBProgressHUDModeIndeterminate;
-        }
     }];
     [operation start];
     return texts;
@@ -100,6 +95,10 @@ MBProgressHUD *hud;
     return urlsForView;
 }
 
+- (UIImage *)placeHolderImageForImagePager {
+    return [UIImage imageNamed:@"noImageAvailable.jpg"];
+}
+
 - (UIViewContentMode) contentModeForImage:(NSUInteger)image
 {
     return UIViewContentModeScaleToFill;
@@ -107,12 +106,8 @@ MBProgressHUD *hud;
 
 - (IBAction)comments:(id)sender {
     CommentsView *currentView = [self.storyboard instantiateViewControllerWithIdentifier:@"comments"];
-    currentView.view.frame = CGRectMake(0, 0, 320, 460);
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:.8];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft  forView:self.view cache:YES];
-    [self.view addSubview:currentView.view];
-    [UIView commitAnimations];
+    [currentView setURL:_URL];
+    [self presentViewController:currentView animated:YES completion:nil];
 }
 
 @end

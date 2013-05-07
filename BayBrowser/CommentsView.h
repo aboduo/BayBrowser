@@ -12,5 +12,6 @@
     
 }
 @property IBOutlet UITableView *table;
+@property NSString *URL;
 - (IBAction)done:(id)sender;
 @end
