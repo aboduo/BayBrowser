@@ -10,5 +10,7 @@
 
 @interface CommentsCell : UITableViewCell
 @property IBOutlet UITextView *text;
+@property IBOutlet UILabel *usernameLabel;
+@property IBOutlet UILabel *dateLabel;
 
 @end

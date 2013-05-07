@@ -14,14 +14,15 @@
 
 @interface CommentsView () {
     NSMutableArray *comments;
+    NSMutableArray *usernames;
+    NSMutableArray *commentTimes;
     MBProgressHUD *hud;
 }
 @end
 
 @implementation CommentsView
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
@@ -29,27 +30,31 @@
     _table.dataSource = self;
     _table.delegate = self;
     comments = [[NSMutableArray alloc] init];
+    usernames = [[NSMutableArray alloc] init];
+    commentTimes = [[NSMutableArray alloc] init];
     [self getComments];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [usernames count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [comments count];
+    return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [NSString stringWithFormat:@"%@", [[usernames objectAtIndex:section] stringByReplacingOccurrencesOfString:@" " withString:@""]];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *simpleTableIdentifier = @"CommentsCell";
     CommentsCell *cell = (CommentsCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    cell.text.text = [[[comments objectAtIndex:indexPath.row] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
+    cell.text.text = [[[comments objectAtIndex:indexPath.section] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
     return cell;
 }
 
@@ -60,18 +65,30 @@
         NSData *data = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
         TFHpple *parser = [TFHpple hppleWithHTMLData:data];
         NSArray *nodes = [parser searchWithXPathQuery:@"//div[@id='comments']/div"];
-        for (TFHppleElement *element in nodes) {
-            NSArray *aarr = [element childrenWithTagName:@"div"];
-            for (TFHppleElement *hi in aarr) {
-                NSMutableString *plainText = [[NSMutableString alloc] initWithFormat:@"%@",[hi text]];
+        for (TFHppleElement * element in nodes) {
+            NSArray *commentArray = [element childrenWithTagName:@"div"];
+            for (TFHppleElement * commentLevtwo in commentArray) {
+                NSMutableString *plainText = [[NSMutableString alloc] initWithFormat:@"%@", [commentLevtwo text]];
                 if ([[plainText stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 1) {
-                    NSArray *claases = [hi childrenWithTagName:@"a"];
-                    for (TFHppleElement *link in claases) {
+                    NSArray *linkArray = [commentLevtwo childrenWithTagName:@"a"];
+                    for (TFHppleElement * link in linkArray) {
                         [plainText appendString:[NSMutableString stringWithFormat:@" %@", [link text]]];
                     }
                 }
-                if ([[plainText stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 2)
-                [comments addObject:plainText];
+                if ([[plainText stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 2) [comments addObject:plainText];
+            }
+            NSArray *usernameArray = [element childrenWithTagName:@"p"];
+            for (TFHppleElement * usernamesEle in usernameArray) {
+                for (TFHppleElement * usernameLevtwo in [usernamesEle children]) {
+                    NSString *usernameText = [usernameLevtwo text];
+                    if ([[usernameText stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 1) {
+                        [usernames addObject:usernameText];
+                    }
+                    if ([[[usernameLevtwo content] stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 1) {
+                        NSString *dateTime = [[usernameLevtwo content] stringByReplacingOccurrencesOfString:@" at " withString:@""];
+                        [commentTimes addObject:[dateTime stringByReplacingOccurrencesOfString:@" CET:" withString:@""]];
+                    }
+                }
             }
         }
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -85,11 +102,10 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *str = [comments objectAtIndex:indexPath.row];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *str = [comments objectAtIndex:indexPath.section];
     CGSize size = [str sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:UILineBreakModeWordWrap];
-    return size.height+4;
+    return size.height + 4;
 }
 
 @end
