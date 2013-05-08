@@ -15,8 +15,9 @@
 #import "IIViewDeckController.h"
 #import "AppDelegate.h"
 #import "GADBannerView.h"
+#import "PayPalMobile.h"
 
-@interface PostsView : UIViewController <UITableViewDataSource, UITableViewDelegate, JMTabViewDelegate, JMSliderDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate, IIViewDeckControllerDelegate>
+@interface PostsView : UIViewController <UITableViewDataSource, UITableViewDelegate, JMTabViewDelegate, JMSliderDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate, IIViewDeckControllerDelegate, PayPalPaymentDelegate>
 {
     AppDelegate *appDelegate;
     NSArray *buttonData;
@@ -55,6 +56,7 @@
 - (void)changeTheme:(BOOL)fullTheme;
 - (void)setCrap;
 - (void)verifyPro;
+- (void)pay;
 - (NSString *)getDescription:(NSString*)urlstring;
 
 @end

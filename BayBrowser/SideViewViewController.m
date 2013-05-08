@@ -9,6 +9,7 @@
 #import "SideViewViewController.h"
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PostsView.h"
 
 @interface SideViewViewController ()
 
@@ -46,9 +47,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-    return @"Categories";
-    }
-    else {
+        return @"Categories";
+    } else {
         return @"Version 1.0b7";
     }
 }
@@ -60,9 +60,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return [objects count];
-    }
-    else {
-        return 1;
+    } else {
+        return 2;
     }
 }
 
@@ -70,51 +69,59 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.text = @"Beta Feedback/Bugs";
-    if (indexPath.section == 0 ) {
+    if (indexPath.row == 0) {
+        cell.textLabel.text = @"Beta Feedback/Bugs";
+    }
+    if (indexPath.row == 1) {
+        cell.textLabel.text = @"Purchase Pro";
+    }
+    if (indexPath.section == 0) {
         cell.textLabel.text = [objects objectAtIndex:indexPath.row];
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (indexPath.section == 1) {
-        [TestFlight openFeedbackView];
+        if (indexPath.row == 0) {
+            [TestFlight openFeedbackView];
+        } else {
+            appDelegate.payPressed = YES;
+            [appDelegate.deckController toggleLeftView];
+        }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        appDelegate.reload = YES;
-    }
-    else {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    appDelegate.more = NO;
-        appDelegate.reload = YES;
-    if (indexPath.row == 0) {
-        appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=all"];
-        appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
-        appDelegate.label = [NSMutableString stringWithFormat:@"Top 100"];
-    } else if (indexPath.row == 1) {
-        appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=100/"];
-        appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
-        appDelegate.label = [NSMutableString stringWithFormat:@"Top Songs"];
-    } else if (indexPath.row == 2) {
-        appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=200/"];
-        appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
-        appDelegate.label = [NSMutableString stringWithFormat:@"Top Videos"];
-    } else if (indexPath.row == 3) {
-        appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=300/"];
-        appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
-        appDelegate.label = [NSMutableString stringWithFormat:@"Top Applications"];
-    } else if (indexPath.row == 4) {
-        appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=400/"];
-        appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
-        appDelegate.label = [NSMutableString stringWithFormat:@"Top Games"];
-    } else if (indexPath.row == 5) {
-        appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=600/"];
-        appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
-        appDelegate.label = [NSMutableString stringWithFormat:@"Top Other"];
     } else {
-    }
-    [appDelegate.deckController toggleLeftView];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        appDelegate.more = NO;
+        appDelegate.reload = YES;
+        if (indexPath.row == 0) {
+            appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=all"];
+            appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
+            appDelegate.label = [NSMutableString stringWithFormat:@"Top 100"];
+        } else if (indexPath.row == 1) {
+            appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=100/"];
+            appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
+            appDelegate.label = [NSMutableString stringWithFormat:@"Top Songs"];
+        } else if (indexPath.row == 2) {
+            appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=200/"];
+            appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
+            appDelegate.label = [NSMutableString stringWithFormat:@"Top Videos"];
+        } else if (indexPath.row == 3) {
+            appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=300/"];
+            appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
+            appDelegate.label = [NSMutableString stringWithFormat:@"Top Applications"];
+        } else if (indexPath.row == 4) {
+            appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=400/"];
+            appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
+            appDelegate.label = [NSMutableString stringWithFormat:@"Top Games"];
+        } else if (indexPath.row == 5) {
+            appDelegate.URL = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=600/"];
+            appDelegate.QUERY = [NSMutableString stringWithFormat:@""];
+            appDelegate.label = [NSMutableString stringWithFormat:@"Top Other"];
+        } else {
+        }
+        [appDelegate.deckController toggleLeftView];
     }
 }
 

@@ -88,8 +88,7 @@ BOOL themecolorlight;
         bannerAd.rootViewController = self;
         [self.view addSubview:bannerAd];
         [bannerAd loadRequest:[GADRequest request]];
-    }
-    else {
+    } else {
         [self verifyPro];
     }
     [TestFlight passCheckpoint:@"Finished launch"];
@@ -512,6 +511,10 @@ BOOL themecolorlight;
     if (appDelegate.reload) {
         [self sortBy:0];
     }
+    if (appDelegate.payPressed) {
+        appDelegate.payPressed = NO;
+        [self pay];
+    }
     appDelegate.reload = NO;
 }
 
@@ -702,4 +705,42 @@ BOOL themecolorlight;
     }];
     [operation start];
 }
+
+- (void)pay {
+    PayPalPayment *payment = [[PayPalPayment alloc] init];
+    payment.amount = [[NSDecimalNumber alloc] initWithString:@"0.99"];
+    payment.currencyCode = @"USD";
+    payment.shortDescription = @"BayBrowser";
+    if (!payment.processable) {
+        UIAlertView *payError = [[UIAlertView alloc] initWithTitle:@"Error!" message:@"Paypal error, try again later" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [payError show];
+        return;
+    }
+    [PayPalPaymentViewController setEnvironment:PayPalEnvironmentSandbox]; // ONLY FOR TESTING
+    NSString *aPayerId = @"proxysetup1@gmail.com";
+    PayPalPaymentViewController *paymentViewController;
+    paymentViewController = [[PayPalPaymentViewController alloc] initWithClientId:@"AaeSTxCD8o0nloVj8vd4gLj9d8IglVIBEpXI7n_orW3rJCcQok1lwph2VKzo" receiverEmail:@"ethan.a.arbuckle@gmail.com" payerId:aPayerId payment:payment delegate:self];
+    [self presentViewController:paymentViewController animated:NO completion:nil];
+}
+
+- (void)payPalPaymentDidCancel {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)payPalPaymentDidComplete:(PayPalPayment *)completedPayment {
+    NSData *confirmation = [NSJSONSerialization dataWithJSONObject:completedPayment.confirmation options:0 error:nil];
+    NSDictionary *payment = [NSJSONSerialization JSONObjectWithData:confirmation options:kNilOptions error:nil];
+    if ([[[[payment objectForKey:@"proof_of_payment"] objectForKey:@"adaptive_payment"] objectForKey:@"payment_exec_status"] isEqual:@"COMPLETED"]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        UIAlertView *proAccepted = [[UIAlertView alloc] initWithTitle:@"Success" message:@"BayBrowser PRO activated!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [proAccepted show];
+        [bannerAd removeFromSuperview];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"pro"];
+        [[NSUserDefaults standardUserDefaults] setValue:[[[payment objectForKey:@"proof_of_payment"] objectForKey:@"adaptive_payment"] objectForKey:@"pay_key"] forKey:@"key"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 @end

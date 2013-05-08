@@ -25,6 +25,7 @@
     self.window.layer.opaque = NO;
     _page = 0;
     _reload = NO;
+    _payPressed = NO;
     UIViewController *leftView = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Side"];
     UIViewController *posts = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Posts"];
     _deckController = [[IIViewDeckController alloc] initWithCenterViewController:posts leftViewController:leftView rightViewController:nil];

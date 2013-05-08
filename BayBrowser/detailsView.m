@@ -92,7 +92,7 @@ MBProgressHUD *hud;
 }
 
 - (UIImage *)placeHolderImageForImagePager {
-    return [UIImage imageNamed:@"noImageAvailable.jpg"];
+    return [UIImage imageNamed:@"loadingImage.jpg"];
 }
 
 - (UIViewContentMode) contentModeForImage:(NSUInteger)image

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "IIViewDeckController.h"
+#import "PayPalMobile.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, IIViewDeckControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, IIViewDeckControllerDelegate, PayPalPaymentDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property IIViewDeckController *deckController;
@@ -20,5 +21,5 @@
 @property BOOL more;
 @property BOOL loadingSomething;
 @property BOOL reload;
-
+@property BOOL payPressed;
 @end
