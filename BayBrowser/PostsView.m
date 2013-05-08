@@ -43,6 +43,7 @@ BOOL themecolorlight;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"theme"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"pro"];
         [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"key"];
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"key-id"];
         [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -668,13 +669,14 @@ BOOL themecolorlight;
 }
 
 - (void)verifyPro {
-    NSString *key = [[NSUserDefaults standardUserDefaults] valueForKey:@"pro"];
+    NSString *key = [[NSUserDefaults standardUserDefaults] valueForKey:@"key"];
     #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ethanarbuckle.com/activation/php?udid=%@&key=%@", [[UIDevice currentDevice] uniqueIdentifier], key]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ethanarbuckle.com/auth.php?id=%@", key]];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([[NSString stringWithFormat:@"%@", responseObject] isEqual:@"accepted"]) {
+        NSString *response = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        if ([response rangeOfString:[NSString stringWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]]].location != NSNotFound) {
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"pro"];
             [[NSUserDefaults standardUserDefaults] setValue:key forKey:@"key"];
             [[NSUserDefaults standardUserDefaults] synchronize];
@@ -735,9 +737,16 @@ BOOL themecolorlight;
         UIAlertView *proAccepted = [[UIAlertView alloc] initWithTitle:@"Success" message:@"BayBrowser PRO activated!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [proAccepted show];
         [bannerAd removeFromSuperview];
+        NSString *appKey = [[[payment objectForKey:@"proof_of_payment"] objectForKey:@"adaptive_payment"] objectForKey:@"pay_key"];
+        NSString *appId = [[[payment objectForKey:@"proof_of_payment"] objectForKey:@"adaptive_payment"] objectForKey:@"app_id"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"pro"];
-        [[NSUserDefaults standardUserDefaults] setValue:[[[payment objectForKey:@"proof_of_payment"] objectForKey:@"adaptive_payment"] objectForKey:@"pay_key"] forKey:@"key"];
+        [[NSUserDefaults standardUserDefaults] setValue:appKey forKey:@"key"];
+        [[NSUserDefaults standardUserDefaults] setValue:appId forKey:@"key-id"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ethanarbuckle.com/authMake.php?key=%@&id=%@&udid=%@", appKey, appId, [[UIDevice currentDevice] uniqueIdentifier]]];
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        [operation start];
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }

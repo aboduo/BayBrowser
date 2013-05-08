@@ -61,7 +61,11 @@
     if (section == 0) {
         return [objects count];
     } else {
-        return 2;
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"pro"]) {
+            return 1;
+        } else {
+            return 2;
+        }
     }
 }
 
