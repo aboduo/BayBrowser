@@ -10,17 +10,20 @@
 #import "TFHpple.h"
 #import "MBProgressHUD.h"
 #import "AFNetworking.h"
-#import "CommentsView.h"
 #import "NSString+HTML.h"
+#import "CommentsCell.h"
 
-@interface detailsView ()
-
+@interface detailsView () {
+    NSMutableArray *comments;
+    NSMutableArray *usernames;
+    NSMutableArray *commentTimes;
+}
 @end
 
 NSMutableArray *urlsForView;
 @implementation detailsView
 MBProgressHUD *hud;
-@synthesize text, segControl;
+@synthesize text, segControl, table;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,7 +35,12 @@ MBProgressHUD *hud;
     _pictureView.delegate = self;
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading";
-    [self getDescription:_URL]; 
+    [self getDescription:_URL];
+    table.delegate = self;
+    table.dataSource = self;
+    comments = [[NSMutableArray alloc] init];
+    usernames = [[NSMutableArray alloc] init];
+    commentTimes = [[NSMutableArray alloc] init];
 }
 
 - (IBAction)close:(id)sender {
@@ -63,8 +71,8 @@ MBProgressHUD *hud;
             NSString *postid = [element text];
             if (postid) {
                 if (([postid rangeOfString:@".png"].location != NSNotFound) || ([postid rangeOfString:@".jpg"].location != NSNotFound)) {
-                NSString *parsed = [postid stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                [urlsForView addObject:parsed];
+                    NSString *parsed = [postid stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                    [urlsForView addObject:parsed];
                 }
             }
         }
@@ -73,22 +81,18 @@ MBProgressHUD *hud;
         _pictureView.backgroundColor = [UIColor darkGrayColor];
         [_pictureView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        text.text = [texts stringByDecodingHTMLEntities];
-        CGRect frame = text.frame;
-        frame.size.height = frame.size.height + 200;
-        text.frame = frame;
-        [text updateConstraints];
+        _textString = texts;
+        [table reloadData];
     } failure:nil];
     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
     {
-            hud.mode = MBProgressHUDModeIndeterminate;
+        hud.mode = MBProgressHUDModeIndeterminate;
     }];
     [operation start];
     return texts;
 }
 
-- (NSMutableArray *) arrayWithImageUrlStrings
-{
+- (NSMutableArray *)arrayWithImageUrlStrings {
     return urlsForView;
 }
 
@@ -96,18 +100,120 @@ MBProgressHUD *hud;
     return [UIImage imageNamed:@"loadingImage.jpg"];
 }
 
-- (UIViewContentMode) contentModeForImage:(NSUInteger)image
-{
+- (UIViewContentMode)contentModeForImage:(NSUInteger)image {
     return UIViewContentModeScaleToFill;
 }
 
-- (IBAction)comments:(id)sender {
-    CommentsView *currentView = [self.storyboard instantiateViewControllerWithIdentifier:@"comments"];
-    [currentView setURL:_URL];
-    [self presentViewController:currentView animated:YES completion:nil];
+- (IBAction)segChange:(id)sender {
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    [self getComments];
+    [table setContentOffset:CGPointZero animated:YES];
 }
 
-- (IBAction)segChange:(id)sender {
-    NSLog(@"%d", segControl.selectedSegmentIndex);
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (segControl.selectedSegmentIndex == 1) {
+        return [usernames count];
+    } else {
+        return 1;
+    }
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (segControl.selectedSegmentIndex == 1) {
+        return [NSString stringWithFormat:@"%@", [[usernames objectAtIndex:section] stringByReplacingOccurrencesOfString:@" " withString:@""]];
+    } else {
+        return nil;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *simpleTableIdentifier = @"CommentsCell";
+    CommentsCell *cell = (CommentsCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    if (segControl.selectedSegmentIndex == 1) {
+        cell.text.text = [[[comments objectAtIndex:indexPath.section] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
+    } else {
+        cell.text.text = _textString;
+    }
+    return cell;
+}
+
+- (void)getComments {
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:_URL]];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSData *data = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
+        TFHpple *parser = [TFHpple hppleWithHTMLData:data];
+        NSArray *nodes = [parser searchWithXPathQuery:@"//div[@id='comments']/div"];
+        for (TFHppleElement * element in nodes) {
+            NSArray *commentArray = [element childrenWithTagName:@"div"];
+            for (TFHppleElement * commentLevtwo in commentArray) {
+                NSMutableString *plainText = [[NSMutableString alloc] initWithFormat:@"%@", [commentLevtwo text]];
+                if ([[plainText stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 1) {
+                    NSArray *linkArray = [commentLevtwo childrenWithTagName:@"a"];
+                    for (TFHppleElement * link in linkArray) {
+                        [plainText appendString:[NSMutableString stringWithFormat:@" %@", [link text]]];
+                    }
+                }
+                if ([[plainText stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 2) [comments addObject:plainText];
+            }
+            NSArray *usernameArray = [element childrenWithTagName:@"p"];
+            for (TFHppleElement * usernamesEle in usernameArray) {
+                for (TFHppleElement * usernameLevtwo in [usernamesEle children]) {
+                    NSString *usernameText = [usernameLevtwo text];
+                    if ([[usernameText stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 1) {
+                        [usernames addObject:usernameText];
+                    }
+                    if ([[[usernameLevtwo content] stringByReplacingOccurrencesOfString:@" " withString:@""] length] >= 1) {
+                        NSString *dateTime = [[usernameLevtwo content] stringByReplacingOccurrencesOfString:@" at " withString:@""];
+                        [commentTimes addObject:[dateTime stringByReplacingOccurrencesOfString:@" CET:" withString:@""]];
+                    }
+                }
+            }
+        }
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        if ([comments count] > 1) {
+            table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            [table reloadData];
+        } else {
+            [table reloadData];
+            UILabel *noComments = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+            noComments.text = @"No Comments";
+            noComments.textColor = [UIColor blackColor];
+            noComments.textAlignment = NSTextAlignmentCenter;
+            noComments.backgroundColor = [UIColor clearColor];
+            noComments.center = self.view.center;
+            [self.view addSubview:noComments];
+        }
+    } failure:nil];
+    [operation start];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [UIView new];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (segControl.selectedSegmentIndex == 1) {
+        NSString *str = [comments objectAtIndex:indexPath.section];
+        CGSize size = [str sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:UILineBreakModeWordWrap];
+        return size.height + 4;
+    } else {
+        CGSize size = [_textString sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:UILineBreakModeWordWrap];
+        return size.height + 4;
+    }
+}
+
 @end

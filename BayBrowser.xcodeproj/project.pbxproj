@@ -41,7 +41,6 @@
 		5F46C885170291FD005C27E8 /* JMTabItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F46C879170291FD005C27E8 /* JMTabItem.m */; };
 		5F46C886170291FD005C27E8 /* JMTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F46C87B170291FD005C27E8 /* JMTabView.m */; };
 		5F46C887170291FD005C27E8 /* BarBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F46C87E170291FD005C27E8 /* BarBackgroundLayer.m */; };
-		5F4DBEE61736173A001D2A2B /* CommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DBEE51736173A001D2A2B /* CommentsView.m */; };
 		5F584E1A172F268C00CD6F48 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F584E16172F268C00CD6F48 /* libTestFlight.a */; };
 		5F584E1B172F268C00CD6F48 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5F584E17172F268C00CD6F48 /* README.md */; };
 		5F584E1C172F268C00CD6F48 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5F584E18172F268C00CD6F48 /* release_notes.md */; };
@@ -170,8 +169,6 @@
 		5F46C87B170291FD005C27E8 /* JMTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTabView.m; sourceTree = "<group>"; };
 		5F46C87D170291FD005C27E8 /* BarBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarBackgroundLayer.h; sourceTree = "<group>"; };
 		5F46C87E170291FD005C27E8 /* BarBackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarBackgroundLayer.m; sourceTree = "<group>"; };
-		5F4DBEE41736173A001D2A2B /* CommentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsView.h; sourceTree = "<group>"; };
-		5F4DBEE51736173A001D2A2B /* CommentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsView.m; sourceTree = "<group>"; };
 		5F584E16172F268C00CD6F48 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		5F584E17172F268C00CD6F48 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		5F584E18172F268C00CD6F48 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -524,8 +521,6 @@
 				5FF5F23117238B3A00902E19 /* Storyboard.storyboard */,
 				5F84A1C917333B5B000CDA93 /* detailsView.h */,
 				5F84A1CA17333B5B000CDA93 /* detailsView.m */,
-				5F4DBEE41736173A001D2A2B /* CommentsView.h */,
-				5F4DBEE51736173A001D2A2B /* CommentsView.m */,
 				5F3EE93517387C5000EB1855 /* CommentsCell.h */,
 				5F3EE93617387C5000EB1855 /* CommentsCell.m */,
 				5F3EE93817387C7300EB1855 /* CommentsCell.xib */,
@@ -825,7 +820,6 @@
 				5FFDB4B2173470E90040C663 /* UIImageView+AFNetworking.m in Sources */,
 				5F257F981734B048006CF3D1 /* ChromeProgressBar.m in Sources */,
 				5FB858851735D25A00CDC03A /* AFImagePager.m in Sources */,
-				5F4DBEE61736173A001D2A2B /* CommentsView.m in Sources */,
 				5F3EE93717387C5000EB1855 /* CommentsCell.m in Sources */,
 				5FD7F384173B384100D6585A /* NSString+HTML.m in Sources */,
 				5FD7F387173B385D00D6585A /* GTMNSString+HTML.m in Sources */,
