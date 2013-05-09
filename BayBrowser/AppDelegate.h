@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "IIViewDeckController.h"
-#import "PayPalMobile.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, IIViewDeckControllerDelegate, PayPalPaymentDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, IIViewDeckControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property IIViewDeckController *deckController;

@@ -77,6 +77,8 @@
 		5FB858861735D25A00CDC03A /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB858831735D25A00CDC03A /* KICamera.png */; };
 		5FB858871735D25A00CDC03A /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB858841735D25A00CDC03A /* KICamera@2x.png */; };
 		5FC64F201731ED62002775B8 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC64F1E1731ECD0002775B8 /* libxml2.dylib */; };
+		5FD7F384173B384100D6585A /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD7F383173B384100D6585A /* NSString+HTML.m */; };
+		5FD7F387173B385D00D6585A /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD7F386173B385D00D6585A /* GTMNSString+HTML.m */; };
 		5FE7613A1731EC7A0020CDED /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761351731EC7A0020CDED /* TFHpple.m */; };
 		5FE7613B1731EC7A0020CDED /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761371731EC7A0020CDED /* TFHppleElement.m */; };
 		5FE7613C1731EC7A0020CDED /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761391731EC7A0020CDED /* XPathQuery.m */; };
@@ -226,6 +228,10 @@
 		5FB858831735D25A00CDC03A /* KICamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KICamera.png; sourceTree = "<group>"; };
 		5FB858841735D25A00CDC03A /* KICamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KICamera@2x.png"; sourceTree = "<group>"; };
 		5FC64F1E1731ECD0002775B8 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		5FD7F382173B384100D6585A /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		5FD7F383173B384100D6585A /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
+		5FD7F385173B385D00D6585A /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		5FD7F386173B385D00D6585A /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		5FE761341731EC7A0020CDED /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
 		5FE761351731EC7A0020CDED /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
 		5FE761361731EC7A0020CDED /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
@@ -528,6 +534,10 @@
 		5F7F211616FE4AD200394999 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5FD7F385173B385D00D6585A /* GTMNSString+HTML.h */,
+				5FD7F386173B385D00D6585A /* GTMNSString+HTML.m */,
+				5FD7F382173B384100D6585A /* NSString+HTML.h */,
+				5FD7F383173B384100D6585A /* NSString+HTML.m */,
 				5F84A1CC17333E6E000CDA93 /* MBProgressHUD.h */,
 				5F84A1CD17333E6E000CDA93 /* MBProgressHUD.m */,
 				5F584E1D172F26BD00CD6F48 /* libz.dylib */,
@@ -812,6 +822,8 @@
 				5FB858851735D25A00CDC03A /* AFImagePager.m in Sources */,
 				5F4DBEE61736173A001D2A2B /* CommentsView.m in Sources */,
 				5F3EE93717387C5000EB1855 /* CommentsCell.m in Sources */,
+				5FD7F384173B384100D6585A /* NSString+HTML.m in Sources */,
+				5FD7F387173B385D00D6585A /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

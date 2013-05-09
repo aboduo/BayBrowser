@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "AFNetworking.h"
 #import "CommentsView.h"
+#import "NSString+HTML.h"
 
 @interface detailsView ()
 
@@ -72,7 +73,7 @@ MBProgressHUD *hud;
         _pictureView.backgroundColor = [UIColor darkGrayColor];
         [_pictureView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        text.text = texts;
+        text.text = [texts stringByDecodingHTMLEntities];
         CGRect frame = text.frame;
         frame.size.height = frame.size.height + 200;
         text.frame = frame;

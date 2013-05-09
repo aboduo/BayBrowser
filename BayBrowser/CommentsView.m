@@ -92,8 +92,18 @@
             }
         }
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        _table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        [_table reloadData];
+        if ([comments count] > 1) {
+            _table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            [_table reloadData];
+        } else {
+            UILabel *noComments = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+            noComments.text = @"No Comments";
+            noComments.textColor = [UIColor blackColor];
+            noComments.textAlignment = NSTextAlignmentCenter;
+            noComments.backgroundColor = [UIColor clearColor];
+            noComments.center = self.view.center;
+            [self.view addSubview:noComments];
+        }
     } failure:nil];
     [operation start];
 }
@@ -106,6 +116,14 @@
     NSString *str = [comments objectAtIndex:indexPath.section];
     CGSize size = [str sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:UILineBreakModeWordWrap];
     return size.height + 4;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [UIView new];
 }
 
 @end
