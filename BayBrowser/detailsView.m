@@ -17,6 +17,7 @@
     NSMutableArray *comments;
     NSMutableArray *usernames;
     NSMutableArray *commentTimes;
+    UILabel *noComments;
 }
 @end
 
@@ -115,9 +116,15 @@ MBProgressHUD *hud;
 }
 
 - (IBAction)segChange:(id)sender {
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    [self getComments];
+    [noComments removeFromSuperview];
+    if (segControl.selectedSegmentIndex == 1) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeIndeterminate;
+        [self getComments];
+    }
+    else {
+        [table reloadData];
+    }
     [table setContentOffset:CGPointZero animated:YES];
 }
 
@@ -197,13 +204,14 @@ MBProgressHUD *hud;
             [table reloadData];
         } else {
             [table reloadData];
-            UILabel *noComments = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+            noComments = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
             noComments.text = @"No Comments";
             noComments.textColor = [UIColor blackColor];
             noComments.textAlignment = NSTextAlignmentCenter;
             noComments.backgroundColor = [UIColor clearColor];
             noComments.center = self.view.center;
             [self.view addSubview:noComments];
+            table.separatorStyle = UITableViewCellSeparatorStyleNone;
         }
     } failure:nil];
     [operation start];

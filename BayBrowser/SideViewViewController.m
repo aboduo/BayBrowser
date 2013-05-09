@@ -49,7 +49,7 @@
     if (section == 0) {
         return @"Categories";
     } else {
-        return @"Version 1.0b7";
+        return @"BayBrowser 1.0";
     }
 }
 
@@ -62,7 +62,7 @@
         return [objects count];
     } else {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"pro"]) {
-            return 1;
+            return 2;
         } else {
             return 2;
         }
@@ -74,10 +74,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.textLabel.textColor = [UIColor whiteColor];
     if (indexPath.row == 0) {
-        cell.textLabel.text = @"Beta Feedback/Bugs";
+        cell.textLabel.text = @"Feedback/Bugs";
     }
     if (indexPath.row == 1) {
-        cell.textLabel.text = @"Purchase Pro";
+        cell.textLabel.text = @"About";
     }
     if (indexPath.section == 0) {
         cell.textLabel.text = [objects objectAtIndex:indexPath.row];
@@ -89,10 +89,12 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            [TestFlight openFeedbackView];
-        } else {
             appDelegate.payPressed = YES;
             [appDelegate.deckController toggleLeftView];
+        } else {
+            NSString *aboutMessage = @"Created by Ethan Arbuckle\n\nThanks to:\nStig Brautaset (JSON)\nSam Vermette\nMarcus Kida\n Jason Morrissey\n\nBuild Date: May/9/13";
+            UIAlertView *about = [[UIAlertView alloc] initWithTitle:@"BayBrowser 1.0" message:aboutMessage delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
+            [about show];
         }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     } else {
@@ -154,6 +156,10 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "IIViewDeckController.h"
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface SideViewViewController : UITableViewController <IIViewDeckControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate> {
+@interface SideViewViewController : UITableViewController <IIViewDeckControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, MFMailComposeViewControllerDelegate> {
     NSArray *objects;
 }
 @property IBOutlet UISearchBar *serch;

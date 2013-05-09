@@ -17,8 +17,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-    [TestFlight takeOff:@"1821d485-30b2-45b1-91c9-3f7c72103788"];
     self.window.backgroundColor = [UIColor clearColor];
     [self.window.layer setCornerRadius:5.0];
     [self.window.layer setMasksToBounds:YES];
@@ -34,7 +32,6 @@
     self.window.rootViewController = _deckController;
     [self.window makeKeyAndVisible];
     return YES;
-    [TestFlight passCheckpoint:@"Launched"];
 }
 
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController didCloseViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {

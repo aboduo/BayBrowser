@@ -92,7 +92,6 @@ BOOL themecolorlight;
     } else {
         [self verifyPro];
     }
-    [TestFlight passCheckpoint:@"Finished launch"];
 }
 
 - (void)tabView:(JMTabView *)tabView didSelectTabAtIndex:(NSUInteger)itemIndex {
@@ -164,9 +163,7 @@ BOOL themecolorlight;
         cell.seederslabel.text = [NSString stringWithFormat:@"SE: %@ - LE: %@", svalue, lvalue];
         cell.sizeLabel.text = [NSString stringWithFormat:@"%@", [size objectAtIndex:indexPath.row]];
         cell.uploadedLabel.text = [NSString stringWithFormat:@"Uploaded: %@", [uplo objectAtIndex:indexPath.row]];
-    } else {
-        [TestFlight passCheckpoint:@"Avoided crash! Woot!!"];
-    }
+    } 
     return cell;
 }
 
@@ -218,7 +215,6 @@ BOOL themecolorlight;
         }];
         [operation start];
     });
-    [TestFlight passCheckpoint:@"Loaded Info"];
 }
 
 - (void)sortBy:(NSInteger *)index {
@@ -269,7 +265,6 @@ BOOL themecolorlight;
         }];
         [operation start];
     });
-    [TestFlight passCheckpoint:@"Loaded Info2"];
 }
 
 - (void)setupGestureRecognizer {
@@ -428,7 +423,6 @@ BOOL themecolorlight;
 }
 
 - (IBAction)touchUpInsideAction:(UIButton *)button {
-    [TestFlight passCheckpoint:@"Touch on slider"];
     NSIndexPath *indexPath = [theTable indexPathForCell:_sideSwipeCell];
     NSUInteger index = [buttons indexOfObject:button];
     NSDictionary *buttonInfo = [buttonData objectAtIndex:index];
@@ -514,7 +508,7 @@ BOOL themecolorlight;
     }
     if (appDelegate.payPressed) {
         appDelegate.payPressed = NO;
-        [self pay];
+        [self feedback];
     }
     appDelegate.reload = NO;
 }
@@ -579,7 +573,6 @@ BOOL themecolorlight;
 }
 
 - (void)switcharoo {
-    [TestFlight passCheckpoint:@"Theme changed"];
     if (themecolorlight) {
         themecolorlight = FALSE;
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"theme"];
@@ -750,6 +743,14 @@ BOOL themecolorlight;
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void)feedback {
+    MFMailComposeViewController *email = [[MFMailComposeViewController alloc] init];
+    email.mailComposeDelegate = self;
+    [email setSubject:@"BayBrowser 1.0"];
+    [email setToRecipients:[NSArray arrayWithObject:@"ethan.a.arbuckle@gmail.com"]];
+    [self presentViewController:email animated:YES completion:nil];
 }
 
 @end

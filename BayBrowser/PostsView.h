@@ -57,6 +57,7 @@
 - (void)setCrap;
 - (void)verifyPro;
 - (void)pay;
+- (void)feedback;
 - (NSString *)getDescription:(NSString*)urlstring;
 
 @end
