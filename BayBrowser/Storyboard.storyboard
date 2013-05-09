@@ -114,7 +114,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vqN-nF-3Ya">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="229" id="b5y-ce-BgJ"/>
+                                    <constraint firstAttribute="height" constant="229" id="zMO-oK-Hxb"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" textLabel="kBI-pE-E6b" style="IBUITableViewCellStyleDefault" id="tLx-9R-fBF">
@@ -152,11 +152,11 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vqN-nF-3Ya" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="1fl-ae-cm2"/>
+                            <constraint firstItem="vqN-nF-3Ya" firstAttribute="top" secondItem="f0F-Te-3gW" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="1ze-Qm-O4R"/>
                             <constraint firstItem="vqN-nF-3Ya" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="2zb-ZB-BYf"/>
                             <constraint firstItem="IW1-aI-uOD" firstAttribute="top" secondItem="Tad-nT-Den" secondAttribute="top" type="default" id="3GD-1O-s7N"/>
                             <constraint firstAttribute="bottom" secondItem="c9M-ol-1Q7" secondAttribute="bottom" constant="281" id="3U7-eq-Jvh"/>
                             <constraint firstItem="c9M-ol-1Q7" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="8fe-wW-5eY"/>
-                            <constraint firstItem="vqN-nF-3Ya" firstAttribute="top" secondItem="f0F-Te-3gW" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="AYS-G9-4Ze"/>
                             <constraint firstItem="f0F-Te-3gW" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="H5h-4j-e6b"/>
                             <constraint firstItem="IW1-aI-uOD" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="M3H-bu-z9m"/>
                             <constraint firstItem="IW1-aI-uOD" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="WY2-ZN-IQd"/>

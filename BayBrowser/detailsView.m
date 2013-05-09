@@ -82,6 +82,16 @@ MBProgressHUD *hud;
         [_pictureView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _textString = texts;
+        if ([urlsForView count] < 1) {
+            UILabel *pic = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+            pic.text = @"No Images";
+            pic.textColor = [UIColor blackColor];
+            pic.textAlignment = NSTextAlignmentCenter;
+            pic.backgroundColor = [UIColor clearColor];
+            pic.center = self.pictureView.center;
+            [self.view addSubview:pic];
+            [_pictureView removeFromSuperview];
+        }
         [table reloadData];
     } failure:nil];
     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
@@ -141,7 +151,9 @@ MBProgressHUD *hud;
     if (segControl.selectedSegmentIndex == 1) {
         cell.text.text = [[[comments objectAtIndex:indexPath.section] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
     } else {
-        cell.text.text = _textString;
+        NSString *newString = [_textString stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cell.text.text = [newString stringByConvertingHTMLToPlainText];
     }
     return cell;
 }
