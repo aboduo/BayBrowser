@@ -104,13 +104,13 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9M-ol-1Q7" customClass="AFImagePager">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="223" id="Qea-tN-bJ7"/>
+                                            <constraint firstAttribute="height" constant="130" id="P8N-pr-mbn"/>
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seb-3Z-KU8">
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="282" id="Tox-Ub-p7J"/>
+                                            <constraint firstAttribute="height" constant="330" id="SrH-hL-SAV"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -118,15 +118,27 @@
                                             <outlet property="delegate" destination="MSP-RX-hGn" id="Xpj-LH-Pz3"/>
                                         </connections>
                                     </textView>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="f0F-Te-3gW" customClass="SDSegmentedControl">
+                                        <segments>
+                                            <segment title="Description"/>
+                                            <segment title="Comments"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="segChange:" destination="MSP-RX-hGn" eventType="valueChanged" id="cXH-Z6-lij"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="centerX" secondItem="lFV-VA-zYs" secondAttribute="centerX" type="default" id="KHF-Hw-JN3"/>
+                                    <constraint firstItem="f0F-Te-3gW" firstAttribute="top" secondItem="lFV-VA-zYs" secondAttribute="top" constant="130" id="3Aa-Fq-KZx"/>
+                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="centerX" secondItem="lFV-VA-zYs" secondAttribute="centerX" type="default" id="4u5-Mf-dZm"/>
+                                    <constraint firstItem="c9M-ol-1Q7" firstAttribute="trailing" secondItem="lFV-VA-zYs" secondAttribute="trailing" type="default" id="V52-6X-Wjr"/>
+                                    <constraint firstItem="f0F-Te-3gW" firstAttribute="leading" secondItem="lFV-VA-zYs" secondAttribute="leading" type="default" id="ZGv-rb-oDG"/>
+                                    <constraint firstItem="f0F-Te-3gW" firstAttribute="trailing" secondItem="lFV-VA-zYs" secondAttribute="trailing" type="default" id="Zib-34-hte"/>
                                     <constraint firstItem="seb-3Z-KU8" firstAttribute="leading" secondItem="lFV-VA-zYs" secondAttribute="leading" type="default" id="bNb-Er-BIE"/>
-                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="top" secondItem="lFV-VA-zYs" secondAttribute="top" constant="222" id="bj8-0i-Y5m"/>
-                                    <constraint firstItem="c9M-ol-1Q7" firstAttribute="trailing" secondItem="seb-3Z-KU8" secondAttribute="trailing" type="default" id="iLh-7F-p0O"/>
                                     <constraint firstItem="seb-3Z-KU8" firstAttribute="bottom" secondItem="lFV-VA-zYs" secondAttribute="bottom" type="default" id="lI7-Sv-GI6"/>
+                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="trailing" secondItem="lFV-VA-zYs" secondAttribute="trailing" type="default" id="m0h-ph-HI9"/>
+                                    <constraint firstItem="seb-3Z-KU8" firstAttribute="top" secondItem="lFV-VA-zYs" secondAttribute="top" constant="174" id="nEj-x3-79v"/>
                                     <constraint firstItem="c9M-ol-1Q7" firstAttribute="leading" secondItem="lFV-VA-zYs" secondAttribute="leading" type="default" id="qAc-Xs-KAp"/>
-                                    <constraint firstAttribute="trailing" secondItem="c9M-ol-1Q7" secondAttribute="trailing" constant="-1" id="sHI-Nb-OJb"/>
                                     <constraint firstItem="c9M-ol-1Q7" firstAttribute="top" secondItem="lFV-VA-zYs" secondAttribute="top" type="default" id="szc-DG-5at"/>
                                 </constraints>
                                 <connections>
@@ -164,6 +176,7 @@
                     <connections>
                         <outlet property="pictureView" destination="c9M-ol-1Q7" id="dw1-e1-LTK"/>
                         <outlet property="scoller" destination="lFV-VA-zYs" id="al4-ON-9ta"/>
+                        <outlet property="segControl" destination="f0F-Te-3gW" id="Ewf-0r-E1T"/>
                         <outlet property="text" destination="seb-3Z-KU8" id="6Jt-fg-5jo"/>
                     </connections>
                 </viewController>
@@ -268,6 +281,9 @@
                 <relationship kind="outlet" name="theTable" candidateClass="UITableView"/>
             </relationships>
         </class>
+        <class className="SDSegmentedControl" superclassName="UISegmentedControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SDSegmentedControl.h"/>
+        </class>
         <class className="SideViewViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SideViewViewController.h"/>
             <relationships>
@@ -280,8 +296,10 @@
             <relationships>
                 <relationship kind="action" name="close:"/>
                 <relationship kind="action" name="comments:"/>
+                <relationship kind="action" name="segChange:"/>
                 <relationship kind="outlet" name="pictureView" candidateClass="AFImagePager"/>
                 <relationship kind="outlet" name="scoller" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="segControl" candidateClass="SDSegmentedControl"/>
                 <relationship kind="outlet" name="text" candidateClass="UITextView"/>
             </relationships>
         </class>

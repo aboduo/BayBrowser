@@ -77,6 +77,7 @@
 		5FB858861735D25A00CDC03A /* KICamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB858831735D25A00CDC03A /* KICamera.png */; };
 		5FB858871735D25A00CDC03A /* KICamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB858841735D25A00CDC03A /* KICamera@2x.png */; };
 		5FC64F201731ED62002775B8 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC64F1E1731ECD0002775B8 /* libxml2.dylib */; };
+		5FD41CC2173B736A0025CB21 /* SDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41CC1173B736A0025CB21 /* SDSegmentedControl.m */; };
 		5FD7F384173B384100D6585A /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD7F383173B384100D6585A /* NSString+HTML.m */; };
 		5FD7F387173B385D00D6585A /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD7F386173B385D00D6585A /* GTMNSString+HTML.m */; };
 		5FE7613A1731EC7A0020CDED /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE761351731EC7A0020CDED /* TFHpple.m */; };
@@ -228,6 +229,8 @@
 		5FB858831735D25A00CDC03A /* KICamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KICamera.png; sourceTree = "<group>"; };
 		5FB858841735D25A00CDC03A /* KICamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KICamera@2x.png"; sourceTree = "<group>"; };
 		5FC64F1E1731ECD0002775B8 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		5FD41CC0173B736A0025CB21 /* SDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDSegmentedControl.h; sourceTree = "<group>"; };
+		5FD41CC1173B736A0025CB21 /* SDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDSegmentedControl.m; sourceTree = "<group>"; };
 		5FD7F382173B384100D6585A /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
 		5FD7F383173B384100D6585A /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		5FD7F385173B385D00D6585A /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -534,6 +537,8 @@
 		5F7F211616FE4AD200394999 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5FD41CC0173B736A0025CB21 /* SDSegmentedControl.h */,
+				5FD41CC1173B736A0025CB21 /* SDSegmentedControl.m */,
 				5FD7F385173B385D00D6585A /* GTMNSString+HTML.h */,
 				5FD7F386173B385D00D6585A /* GTMNSString+HTML.m */,
 				5FD7F382173B384100D6585A /* NSString+HTML.h */,
@@ -824,6 +829,7 @@
 				5F3EE93717387C5000EB1855 /* CommentsCell.m in Sources */,
 				5FD7F384173B384100D6585A /* NSString+HTML.m in Sources */,
 				5FD7F387173B385D00D6585A /* GTMNSString+HTML.m in Sources */,
+				5FD41CC2173B736A0025CB21 /* SDSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

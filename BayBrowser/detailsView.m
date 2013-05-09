@@ -20,7 +20,7 @@
 NSMutableArray *urlsForView;
 @implementation detailsView
 MBProgressHUD *hud;
-@synthesize text;
+@synthesize text, segControl;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,7 +32,7 @@ MBProgressHUD *hud;
     _pictureView.delegate = self;
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading";
-    [self getDescription:_URL];
+    [self getDescription:_URL]; 
 }
 
 - (IBAction)close:(id)sender {
@@ -107,4 +107,7 @@ MBProgressHUD *hud;
     [self presentViewController:currentView animated:YES completion:nil];
 }
 
+- (IBAction)segChange:(id)sender {
+    NSLog(@"%d", segControl.selectedSegmentIndex);
+}
 @end
