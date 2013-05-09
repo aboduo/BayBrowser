@@ -99,65 +99,44 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFV-VA-zYs">
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9M-ol-1Q7" customClass="AFImagePager">
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="130" id="P8N-pr-mbn"/>
-                                        </constraints>
-                                    </view>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="f0F-Te-3gW" customClass="SDSegmentedControl">
-                                        <segments>
-                                            <segment title="Description"/>
-                                            <segment title="Comments"/>
-                                        </segments>
-                                        <connections>
-                                            <action selector="segChange:" destination="MSP-RX-hGn" eventType="valueChanged" id="cXH-Z6-lij"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vqN-nF-3Ya">
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="329" id="PtJ-lf-pcW"/>
-                                        </constraints>
-                                        <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" textLabel="kBI-pE-E6b" style="IBUITableViewCellStyleDefault" id="tLx-9R-fBF">
-                                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBI-pE-E6b">
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </view>
-                                            </tableViewCell>
-                                        </prototypes>
-                                    </tableView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="vqN-nF-3Ya" firstAttribute="bottom" secondItem="lFV-VA-zYs" secondAttribute="bottom" type="default" id="1KW-ce-Ig1"/>
-                                    <constraint firstItem="f0F-Te-3gW" firstAttribute="top" secondItem="lFV-VA-zYs" secondAttribute="top" constant="130" id="3Aa-Fq-KZx"/>
-                                    <constraint firstItem="vqN-nF-3Ya" firstAttribute="top" secondItem="lFV-VA-zYs" secondAttribute="top" constant="175" id="Nob-aN-MgE"/>
-                                    <constraint firstItem="c9M-ol-1Q7" firstAttribute="trailing" secondItem="lFV-VA-zYs" secondAttribute="trailing" type="default" id="V52-6X-Wjr"/>
-                                    <constraint firstItem="f0F-Te-3gW" firstAttribute="leading" secondItem="lFV-VA-zYs" secondAttribute="leading" type="default" id="ZGv-rb-oDG"/>
-                                    <constraint firstItem="f0F-Te-3gW" firstAttribute="trailing" secondItem="lFV-VA-zYs" secondAttribute="trailing" type="default" id="Zib-34-hte"/>
-                                    <constraint firstItem="vqN-nF-3Ya" firstAttribute="trailing" secondItem="lFV-VA-zYs" secondAttribute="trailing" type="default" id="j57-hw-1Do"/>
-                                    <constraint firstItem="c9M-ol-1Q7" firstAttribute="leading" secondItem="lFV-VA-zYs" secondAttribute="leading" type="default" id="qAc-Xs-KAp"/>
-                                    <constraint firstItem="f0F-Te-3gW" firstAttribute="centerX" secondItem="lFV-VA-zYs" secondAttribute="centerX" type="default" id="sdI-CF-uwJ"/>
-                                    <constraint firstItem="vqN-nF-3Ya" firstAttribute="leading" secondItem="lFV-VA-zYs" secondAttribute="leading" type="default" id="sua-vq-4Ci"/>
-                                    <constraint firstItem="c9M-ol-1Q7" firstAttribute="top" secondItem="lFV-VA-zYs" secondAttribute="top" type="default" id="szc-DG-5at"/>
-                                </constraints>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9M-ol-1Q7" customClass="AFImagePager">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="f0F-Te-3gW" customClass="SDSegmentedControl">
+                                <segments>
+                                    <segment title="Description"/>
+                                    <segment title="Comments"/>
+                                </segments>
                                 <connections>
-                                    <outlet property="delegate" destination="MSP-RX-hGn" id="In5-Cb-Cq2"/>
+                                    <action selector="segChange:" destination="MSP-RX-hGn" eventType="valueChanged" id="cXH-Z6-lij"/>
                                 </connections>
-                            </scrollView>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vqN-nF-3Ya">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="229" id="b5y-ce-BgJ"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" textLabel="kBI-pE-E6b" style="IBUITableViewCellStyleDefault" id="tLx-9R-fBF">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kBI-pE-E6b">
+                                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IW1-aI-uOD">
                                 <items>
                                     <navigationItem title="Description" id="s6o-Ms-BOO">
@@ -172,18 +151,23 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="vqN-nF-3Ya" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="1fl-ae-cm2"/>
+                            <constraint firstItem="vqN-nF-3Ya" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="2zb-ZB-BYf"/>
                             <constraint firstItem="IW1-aI-uOD" firstAttribute="top" secondItem="Tad-nT-Den" secondAttribute="top" type="default" id="3GD-1O-s7N"/>
+                            <constraint firstAttribute="bottom" secondItem="c9M-ol-1Q7" secondAttribute="bottom" constant="281" id="3U7-eq-Jvh"/>
+                            <constraint firstItem="c9M-ol-1Q7" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="8fe-wW-5eY"/>
+                            <constraint firstItem="vqN-nF-3Ya" firstAttribute="top" secondItem="f0F-Te-3gW" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="AYS-G9-4Ze"/>
+                            <constraint firstItem="f0F-Te-3gW" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="H5h-4j-e6b"/>
                             <constraint firstItem="IW1-aI-uOD" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="M3H-bu-z9m"/>
                             <constraint firstItem="IW1-aI-uOD" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="WY2-ZN-IQd"/>
-                            <constraint firstItem="lFV-VA-zYs" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="Zv4-dA-wS1"/>
-                            <constraint firstItem="lFV-VA-zYs" firstAttribute="top" secondItem="IW1-aI-uOD" secondAttribute="bottom" type="default" id="eHo-7b-ZqY"/>
-                            <constraint firstItem="lFV-VA-zYs" firstAttribute="bottom" secondItem="Tad-nT-Den" secondAttribute="bottom" type="default" id="eRd-xW-aL9"/>
-                            <constraint firstItem="lFV-VA-zYs" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="xhu-At-LOk"/>
+                            <constraint firstItem="c9M-ol-1Q7" firstAttribute="leading" secondItem="Tad-nT-Den" secondAttribute="leading" type="default" id="ZRh-v3-YYK"/>
+                            <constraint firstItem="f0F-Te-3gW" firstAttribute="trailing" secondItem="Tad-nT-Den" secondAttribute="trailing" type="default" id="jrp-Vf-1Cu"/>
+                            <constraint firstItem="c9M-ol-1Q7" firstAttribute="top" secondItem="IW1-aI-uOD" secondAttribute="bottom" type="default" id="qBk-eA-XJU"/>
+                            <constraint firstItem="vqN-nF-3Ya" firstAttribute="bottom" secondItem="Tad-nT-Den" secondAttribute="bottom" type="default" id="yh0-KU-HLR"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="pictureView" destination="c9M-ol-1Q7" id="dw1-e1-LTK"/>
-                        <outlet property="scoller" destination="lFV-VA-zYs" id="al4-ON-9ta"/>
                         <outlet property="segControl" destination="f0F-Te-3gW" id="Ewf-0r-E1T"/>
                         <outlet property="table" destination="vqN-nF-3Ya" id="jxI-bN-Lg2"/>
                     </connections>
@@ -296,7 +280,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/detailsView.h"/>
             <relationships>
                 <relationship kind="action" name="close:"/>
-                <relationship kind="action" name="comments:"/>
                 <relationship kind="action" name="segChange:"/>
                 <relationship kind="outlet" name="pictureView" candidateClass="AFImagePager"/>
                 <relationship kind="outlet" name="scoller" candidateClass="UIScrollView"/>
