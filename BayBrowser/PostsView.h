@@ -23,6 +23,7 @@
     NSArray *buttonData;
     NSMutableArray *buttons;
     UIActionSheet *menu;
+    UIActionSheet *menutwo;
     GADBannerView *bannerAd;
 }
 
@@ -33,6 +34,7 @@
 @property NSMutableArray *size;
 @property NSMutableArray *uplo;
 @property NSMutableArray *ids;
+@property NSMutableArray *magnet;
 @property IBOutlet UINavigationBar *bar;
 @property (nonatomic, retain) IBOutlet UITableView *theTable;
 @property JMTabView *tabView;

@@ -17,6 +17,7 @@
 #import "detailsView.h"
 #import "AFNetworking.h"
 #import "ChromeProgressBar.h"
+#import "WBErrorNoticeView.h"
 
 @interface PostsView ()
 @end
@@ -26,7 +27,7 @@ BOOL themecolorlight;
 
 @implementation PostsView
 
-@synthesize posts, arrayposts, theTable, seeders, size, uplo, tabView, ids, leechers;
+@synthesize posts, arrayposts, theTable, seeders, size, uplo, tabView, ids, leechers, magnet;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -62,6 +63,7 @@ BOOL themecolorlight;
     size = [[NSMutableArray alloc] init];
     uplo = [[NSMutableArray alloc] init];
     ids = [[NSMutableArray alloc] init];
+    magnet = [[NSMutableArray alloc] init];
     leechers = [[NSMutableArray alloc] init];
     tabView = [[JMTabView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [tabView setDelegate:self];
@@ -200,13 +202,19 @@ BOOL themecolorlight;
                 [uplo addObject:[current objectForKey:@"uploaded"]];
                 [ids addObject:[current objectForKey:@"id"]];
                 [leechers addObject:[current objectForKey:@"leechers"]];
+                [magnet addObject:[current objectForKey:@"magnet"]];
             }
             [self setCrap];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [slider removeFromSuperview];
                 appDelegate.loadingSomething = NO;
             });
-        } failure:nil];
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            [slider removeFromSuperview];
+            WBErrorNoticeView *notice = [WBErrorNoticeView errorNoticeInView:self.view title:NSLocalizedString(@"Server Error", nil) message:NSLocalizedString(@"Failed to retrieve these posts.", nil)];
+            [notice show];
+            notice.sticky = YES;
+        }];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -228,6 +236,7 @@ BOOL themecolorlight;
     [size removeAllObjects];
     [ids removeAllObjects];
     [leechers removeAllObjects];
+    [magnet removeAllObjects];
     ChromeProgressBar *chromeBar = [[ChromeProgressBar alloc] initWithFrame:CGRectMake(0.0f, 40.0f, self.view.bounds.size.width, 4.0f)];
     [self.view addSubview:chromeBar];
     [self changeTheme:NO];
@@ -253,10 +262,15 @@ BOOL themecolorlight;
                 [uplo addObject:[current objectForKey:@"uploaded"]];
                 [ids addObject:[current objectForKey:@"id"]];
                 [leechers addObject:[current objectForKey:@"leechers"]];
+                [magnet addObject:[current objectForKey:@"magnet"]];
             }
             [self setCrap];
             appDelegate.loadingSomething = NO;
-        } failure:nil];
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            WBErrorNoticeView *notice = [WBErrorNoticeView errorNoticeInView:self.view title:NSLocalizedString(@"Server Error", nil) message:NSLocalizedString(@"Failed to retrieve these posts.", nil)];
+            [notice show];
+            notice.sticky = YES;
+        }];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -426,7 +440,7 @@ BOOL themecolorlight;
     NSIndexPath *indexPath = [theTable indexPathForCell:_sideSwipeCell];
     NSUInteger index = [buttons indexOfObject:button];
     NSDictionary *buttonInfo = [buttonData objectAtIndex:index];
-    NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/%@", [ids objectAtIndex:indexPath.row], [arrayposts objectAtIndex:indexPath.row]];
+    NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/", [ids objectAtIndex:indexPath.row]];
     NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if ([[buttonInfo objectForKey:@"title"] isEqual:@"action"]) {
         menu = [[UIActionSheet alloc] initWithTitle:@"Share via" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"SMS", nil];
@@ -434,9 +448,9 @@ BOOL themecolorlight;
         [menu showInView:self.view];
     }
     if ([[buttonInfo objectForKey:@"title"] isEqual:@"copy"]) {
-        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-        pasteBoard.string = url;
-        [self setStatus:@"Copied to Clipboard"];
+        menutwo = [[UIActionSheet alloc] initWithTitle:@"Items to Copy" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy Torrent URL", @"Copy Magnet", nil];
+         [menutwo setTag:indexPath.row];
+         [menutwo showInView:self.view];
     }
     if ([[buttonInfo objectForKey:@"title"] isEqual:@"safari"]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
@@ -453,7 +467,20 @@ BOOL themecolorlight;
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/%@", [ids objectAtIndex:actionSheet.tag], [arrayposts objectAtIndex:actionSheet.tag]];
+    if ([actionSheet.title isEqual:@"Items to Copy"]) {
+        if (buttonIndex==0) {
+            NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/", [ids objectAtIndex:actionSheet.tag]];
+            NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+            pasteBoard.string = url;
+        }
+        else {
+            UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+            pasteBoard.string = [magnet objectAtIndex:actionSheet.tag];
+        }
+    }
+    else {
+    NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/", [ids objectAtIndex:actionSheet.tag]];
     NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if (buttonIndex == 0) {
         MFMailComposeViewController *email = [[MFMailComposeViewController alloc] init];
@@ -466,6 +493,7 @@ BOOL themecolorlight;
         sms.messageComposeDelegate = self;
         [sms setBody:url];
         [self presentViewController:sms animated:YES completion:nil];
+    }
     }
 }
 
@@ -623,6 +651,7 @@ BOOL themecolorlight;
                             [uplo addObject:[current objectForKey:@"uploaded"]];
                             [ids addObject:[current objectForKey:@"id"]];
                             [leechers addObject:[current objectForKey:@"leechers"]];
+                            [magnet addObject:[current objectForKey:@"magnet"]];
                         }
                         NSArray *copy = [arrayposts copy];
                         NSInteger index = [copy count] - 1;
@@ -633,6 +662,8 @@ BOOL themecolorlight;
                                 [size removeObjectAtIndex:index];
                                 [uplo removeObjectAtIndex:index];
                                 [leechers removeObjectAtIndex:index];
+                                [magnet removeObjectAtIndex:index];
+                                [ids removeObjectAtIndex:index];
                             }
                             index--;
                         }
@@ -748,9 +779,8 @@ BOOL themecolorlight;
 - (void)feedback {
     MFMailComposeViewController *email = [[MFMailComposeViewController alloc] init];
     email.mailComposeDelegate = self;
-    [email setSubject:@"BayBrowser 1.0"];
+    [email setSubject:@"BayBrowser 1.0.2"];
     [email setToRecipients:[NSArray arrayWithObject:@"ethan.a.arbuckle@gmail.com"]];
     [self presentViewController:email animated:YES completion:nil];
 }
-
 @end

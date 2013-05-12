@@ -49,7 +49,7 @@
     if (section == 0) {
         return @"Categories";
     } else {
-        return @"BayBrowser 1.0";
+        return @"BayBrowser 1.0.2";
     }
 }
 
@@ -92,8 +92,9 @@
             appDelegate.payPressed = YES;
             [appDelegate.deckController toggleLeftView];
         } else {
-            NSString *aboutMessage = @"Created by Ethan Arbuckle\n\nThanks to:\nStig Brautaset (JSON)\nSam Vermette\nMarcus Kida\n Jason Morrissey\n\nBuild Date: May/9/13";
-            UIAlertView *about = [[UIAlertView alloc] initWithTitle:@"BayBrowser 1.0" message:aboutMessage delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
+            NSString *aboutMessage = @"Created by Ethan Arbuckle\n\nThanks to:\nStig Brautaset(JSON)\nSam Vermette\nMarcus Kida\n Jason Morrissey\n\nBuild Date: May/11/13";
+            NSLog(@"build date");
+            UIAlertView *about = [[UIAlertView alloc] initWithTitle:@"BayBrowser 1.0.2" message:aboutMessage delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
             [about show];
         }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
