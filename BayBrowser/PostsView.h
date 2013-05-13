@@ -52,7 +52,7 @@
 - (void)removeSideSwipeView:(BOOL)animated;
 - (void)setupSideSwipeView;
 - (void)setStatus:(NSString *)status;
-- (void)refreshView;
+- (void)refresh;
 - (void)sortBy:(NSInteger *)index;
 - (void)first;
 - (void)changeTheme:(BOOL)fullTheme;
@@ -60,6 +60,7 @@
 - (void)verifyPro;
 - (void)pay;
 - (void)feedback;
+- (void)requestAd;
 - (NSString *)getDescription:(NSString*)urlstring;
 
 @end

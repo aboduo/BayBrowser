@@ -11,7 +11,7 @@
 #import "PostsView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AFNetworking.h"
-#import "WBStickyNoticeView.h"
+#import "WBErrorNoticeView.h"
 
 @implementation AppDelegate
 
@@ -46,9 +46,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://ethanarbuckle.com/message.json"]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        if (![[[NSUserDefaults standardUserDefaults] valueForKey:@"last-message"] isEqual:[JSON objectForKey:@"id"]]) {
-            if ([[JSON objectForKey:@"message"] length] > 1) {
-                WBStickyNoticeView *notice = [WBStickyNoticeView stickyNoticeInView:_deckController.centerController.view title:[JSON objectForKey:@"message"]];
+        if ((![[[NSUserDefaults standardUserDefaults] valueForKey:@"last-message"] isEqual:[JSON objectForKey:@"id"]]) || ([[JSON objectForKey:@"force"] rangeOfString:@"YES"].location != NSNotFound)) {
+            if (([[JSON objectForKey:@"show"] rangeOfString:@"NO"].location == NSNotFound) || ([[JSON objectForKey:@"force"] rangeOfString:@"YES"].location != NSNotFound)) {
+                WBErrorNoticeView *notice = [[WBErrorNoticeView alloc] initWithView:_deckController.centerController.view title:@"Notice"];
+                notice.sticky = YES;
+                notice.message = [JSON objectForKey:@"message"];
                 [notice show];
                 [[NSUserDefaults standardUserDefaults] setValue:[JSON objectForKey:@"id"] forKey:@"last-message"];
                 [[NSUserDefaults standardUserDefaults] synchronize];

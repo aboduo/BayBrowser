@@ -18,6 +18,7 @@
 #import "AFNetworking.h"
 #import "ChromeProgressBar.h"
 #import "WBErrorNoticeView.h"
+#import "NSString+HTML.h"
 
 @interface PostsView ()
 @end
@@ -27,6 +28,7 @@ BOOL themecolorlight;
 
 @implementation PostsView {
     UIImageView *overLay;
+    UIRefreshControl *refreshC;
 }
 
 @synthesize posts, arrayposts, theTable, seeders, size, uplo, tabView, ids, leechers, magnet;
@@ -87,20 +89,9 @@ BOOL themecolorlight;
     appDelegate.label = [NSMutableString stringWithFormat:@"Top Torrents"];
     [self changeTheme:YES];
     [self setupSideSwipeView];
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"shown_overlay"]) {
-        UIImage *instr = [UIImage imageNamed:@"instructions_overlay"];
-        overLay = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        overLay.image = instr;
-        UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideSub:)];
-        tapped.numberOfTapsRequired = 1;
-        [overLay addGestureRecognizer:tapped];
-        [overLay setUserInteractionEnabled:YES];
-        [self.view addSubview:overLay];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"shown_overlay"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    } else {
-        [self hideSub:nil];
-    }
+    refreshC = [[UIRefreshControl alloc] init];
+    [refreshC addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.theTable addSubview:refreshC];
 }
 
 - (IBAction)hideSub:(id)sender {
@@ -111,11 +102,7 @@ BOOL themecolorlight;
     [UIView commitAnimations];
     [self.view setUserInteractionEnabled:YES];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"pro"]) {
-        bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - GAD_SIZE_320x50.height, GAD_SIZE_320x50.width, GAD_SIZE_320x50.height)];
-        bannerAd.adUnitID = @"a1518868d91e152";
-        bannerAd.rootViewController = self;
-        [self.view addSubview:bannerAd];
-        [bannerAd loadRequest:[GADRequest request]];
+        [self requestAd];
     } else {
         [self verifyPro];
     }
@@ -190,7 +177,7 @@ BOOL themecolorlight;
         } else {
             lvalue = [leechers objectAtIndex:indexPath.row];
         }
-        cell.titleLabel.text = [arrayposts objectAtIndex:indexPath.row];
+        cell.titleLabel.text = [[arrayposts objectAtIndex:indexPath.row] stringByConvertingHTMLToPlainText];
         cell.seederslabel.text = [NSString stringWithFormat:@"SE: %@ - LE: %@", svalue, lvalue];
         cell.sizeLabel.text = [NSString stringWithFormat:@"%@", [size objectAtIndex:indexPath.row]];
         cell.uploadedLabel.text = [NSString stringWithFormat:@"Uploaded: %@", [uplo objectAtIndex:indexPath.row]];
@@ -214,6 +201,7 @@ BOOL themecolorlight;
     [self.view addSubview:slider];
     ChromeProgressBar *chromeBar = [[ChromeProgressBar alloc] initWithFrame:CGRectMake(0.0f, 40.0f, self.view.bounds.size.width, 4.0f)];
     [self.view addSubview:chromeBar];
+    [chromeBar setProgress:.04 animated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSString *url = [NSString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=all"];
         appDelegate.QUERY = [NSMutableString stringWithFormat:@"http://apify.ifc0nfig.com/tpb/top?id=all"];
@@ -234,12 +222,32 @@ BOOL themecolorlight;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [slider removeFromSuperview];
                 appDelegate.loadingSomething = NO;
+                if (![[NSUserDefaults standardUserDefaults] boolForKey:@"shown_overlay"]) {
+                    UIImage *instr = [UIImage imageNamed:@"instructions_overlay"];
+                    overLay = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+                    overLay.image = instr;
+                    overLay.alpha = 0.0f;
+                    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideSub:)];
+                    tapped.numberOfTapsRequired = 1;
+                    [overLay addGestureRecognizer:tapped];
+                    [overLay setUserInteractionEnabled:YES];
+                    [self.view addSubview:overLay];
+                    [UIView beginAnimations:nil context:NULL];
+                    [UIView setAnimationDuration:1.0f];
+                    [overLay setAlpha:1.0f];
+                    [UIView commitAnimations];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"shown_overlay"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                } else {
+                    [self hideSub:nil];
+                }
             });
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             [slider removeFromSuperview];
             WBErrorNoticeView *notice = [WBErrorNoticeView errorNoticeInView:self.view title:NSLocalizedString(@"Server Error", nil) message:NSLocalizedString(@"Failed to retrieve these posts.", nil)];
             [notice show];
             notice.sticky = YES;
+            [self hideSub:nil];
         }];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
         {
@@ -266,6 +274,7 @@ BOOL themecolorlight;
     ChromeProgressBar *chromeBar = [[ChromeProgressBar alloc] initWithFrame:CGRectMake(0.0f, 40.0f, self.view.bounds.size.width, 4.0f)];
     [self.view addSubview:chromeBar];
     [self changeTheme:NO];
+    [chromeBar setProgress:.04 animated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSMutableString *url;
         if ((int)index == 0) {
@@ -732,11 +741,7 @@ BOOL themecolorlight;
             [[NSUserDefaults standardUserDefaults] synchronize];
             [bannerAd removeFromSuperview];
         } else {
-            bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - GAD_SIZE_320x50.height, GAD_SIZE_320x50.width, GAD_SIZE_320x50.height)];
-            bannerAd.adUnitID = @"a1518868d91e152";
-            bannerAd.rootViewController = self;
-            [self.view addSubview:bannerAd];
-            [bannerAd loadRequest:[GADRequest request]];
+            [self requestAd];
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"pro"];
             [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"key"];
             [[NSUserDefaults standardUserDefaults] synchronize];
@@ -744,11 +749,7 @@ BOOL themecolorlight;
             [noActiveAlert show];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - GAD_SIZE_320x50.height, GAD_SIZE_320x50.width, GAD_SIZE_320x50.height)];
-        bannerAd.adUnitID = @"a1518868d91e152";
-        bannerAd.rootViewController = self;
-        [self.view addSubview:bannerAd];
-        [bannerAd loadRequest:[GADRequest request]];
+        [self requestAd];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"pro"];
         [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"key"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -810,4 +811,16 @@ BOOL themecolorlight;
     [self presentViewController:email animated:YES completion:nil];
 }
 
+- (void)requestAd {
+    bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - GAD_SIZE_320x50.height, GAD_SIZE_320x50.width, GAD_SIZE_320x50.height)];
+    bannerAd.adUnitID = @"a1518868d91e152";
+    bannerAd.rootViewController = self;
+    [self.view addSubview:bannerAd];
+    [bannerAd loadRequest:[GADRequest request]];
+}
+
+- (void)refresh {
+    [self sortBy:(int*)[tabView selectedIndex]];
+    [refreshC endRefreshing];
+}
 @end
