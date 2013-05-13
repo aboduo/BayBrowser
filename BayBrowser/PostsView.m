@@ -25,7 +25,9 @@
 BOOL firstone = TRUE;
 BOOL themecolorlight;
 
-@implementation PostsView
+@implementation PostsView {
+    UIImageView *overLay;
+}
 
 @synthesize posts, arrayposts, theTable, seeders, size, uplo, tabView, ids, leechers, magnet;
 
@@ -75,8 +77,8 @@ BOOL themecolorlight;
     [theTable setTableHeaderView:tabView];
     [self first];
     buttonData = [NSArray arrayWithObjects:
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"copy", @"title", @"paperclip.png", @"image", nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"safari", @"title", @"safari.png", @"image", nil],
+                  [NSDictionary dictionaryWithObjectsAndKeys:@"copy", @"title", @"copy.png", @"image", nil],
+                  [NSDictionary dictionaryWithObjectsAndKeys:@"safari", @"title", @"safariU.png", @"image", nil],
                   [NSDictionary dictionaryWithObjectsAndKeys:@"hide", @"title", @"hide.png", @"image", nil],
                   [NSDictionary dictionaryWithObjectsAndKeys:@"action", @"title", @"action.png", @"image", nil],
                   nil];
@@ -85,6 +87,29 @@ BOOL themecolorlight;
     appDelegate.label = [NSMutableString stringWithFormat:@"Top Torrents"];
     [self changeTheme:YES];
     [self setupSideSwipeView];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"shown_overlay"]) {
+        UIImage *instr = [UIImage imageNamed:@"instructions_overlay"];
+        overLay = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        overLay.image = instr;
+        UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideSub:)];
+        tapped.numberOfTapsRequired = 1;
+        [overLay addGestureRecognizer:tapped];
+        [overLay setUserInteractionEnabled:YES];
+        [self.view addSubview:overLay];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"shown_overlay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else {
+        [self hideSub:nil];
+    }
+}
+
+- (IBAction)hideSub:(id)sender {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:1.0f];
+    [overLay setAlpha:0.0f];
+    [UIView setAnimationDidStopSelector:@selector(overlayDone)];
+    [UIView commitAnimations];
+    [self.view setUserInteractionEnabled:YES];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"pro"]) {
         bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - GAD_SIZE_320x50.height, GAD_SIZE_320x50.width, GAD_SIZE_320x50.height)];
         bannerAd.adUnitID = @"a1518868d91e152";
@@ -93,7 +118,11 @@ BOOL themecolorlight;
         [bannerAd loadRequest:[GADRequest request]];
     } else {
         [self verifyPro];
-    } 
+    }
+}
+
+- (void)overlayDone {
+    [overLay removeFromSuperview];
 }
 
 - (void)tabView:(JMTabView *)tabView didSelectTabAtIndex:(NSUInteger)itemIndex {
@@ -165,11 +194,8 @@ BOOL themecolorlight;
         cell.seederslabel.text = [NSString stringWithFormat:@"SE: %@ - LE: %@", svalue, lvalue];
         cell.sizeLabel.text = [NSString stringWithFormat:@"%@", [size objectAtIndex:indexPath.row]];
         cell.uploadedLabel.text = [NSString stringWithFormat:@"Uploaded: %@", [uplo objectAtIndex:indexPath.row]];
-    } 
+    }
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -449,8 +475,8 @@ BOOL themecolorlight;
     }
     if ([[buttonInfo objectForKey:@"title"] isEqual:@"copy"]) {
         menutwo = [[UIActionSheet alloc] initWithTitle:@"Items to Copy" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy Torrent URL", @"Copy Magnet", nil];
-         [menutwo setTag:indexPath.row];
-         [menutwo showInView:self.view];
+        [menutwo setTag:indexPath.row];
+        [menutwo showInView:self.view];
     }
     if ([[buttonInfo objectForKey:@"title"] isEqual:@"safari"]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
@@ -468,32 +494,30 @@ BOOL themecolorlight;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([actionSheet.title isEqual:@"Items to Copy"]) {
-        if (buttonIndex==0) {
+        if (buttonIndex == 0) {
             NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/", [ids objectAtIndex:actionSheet.tag]];
             NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
             pasteBoard.string = url;
-        }
-        else {
+        } else {
             UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
             pasteBoard.string = [magnet objectAtIndex:actionSheet.tag];
         }
-    }
-    else {
-    NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/", [ids objectAtIndex:actionSheet.tag]];
-    NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if (buttonIndex == 0) {
-        MFMailComposeViewController *email = [[MFMailComposeViewController alloc] init];
-        email.mailComposeDelegate = self;
-        [email setMessageBody:[NSString stringWithFormat:@"<a href=%@>%@</a>", url, [arrayposts objectAtIndex:actionSheet.tag]] isHTML:YES];
-        [self presentViewController:email animated:YES completion:nil];
-    }
-    if (buttonIndex == 1) {
-        MFMessageComposeViewController *sms = [[MFMessageComposeViewController alloc] init];
-        sms.messageComposeDelegate = self;
-        [sms setBody:url];
-        [self presentViewController:sms animated:YES completion:nil];
-    }
+    } else {
+        NSString *badurl = [NSString stringWithFormat:@"http://thepiratebay.se/torrent/%@/", [ids objectAtIndex:actionSheet.tag]];
+        NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if (buttonIndex == 0) {
+            MFMailComposeViewController *email = [[MFMailComposeViewController alloc] init];
+            email.mailComposeDelegate = self;
+            [email setMessageBody:[NSString stringWithFormat:@"<a href=%@>%@</a>", url, [arrayposts objectAtIndex:actionSheet.tag]] isHTML:YES];
+            [self presentViewController:email animated:YES completion:nil];
+        }
+        if (buttonIndex == 1) {
+            MFMessageComposeViewController *sms = [[MFMessageComposeViewController alloc] init];
+            sms.messageComposeDelegate = self;
+            [sms setBody:url];
+            [self presentViewController:sms animated:YES completion:nil];
+        }
     }
 }
 
@@ -525,12 +549,14 @@ BOOL themecolorlight;
 
 - (IBAction)showLeft:(id)sender {
     [self.view endEditing:YES];
+    [self.view setUserInteractionEnabled:NO];
     [appDelegate.deckController.leftController.view endEditing:YES];
     [appDelegate.deckController toggleLeftView];
 }
 
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController didCloseViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
     appDelegate.deckController.panningMode = 0;
+    [self.view setUserInteractionEnabled:YES];
     if (appDelegate.reload) {
         [self sortBy:0];
     }
@@ -783,4 +809,5 @@ BOOL themecolorlight;
     [email setToRecipients:[NSArray arrayWithObject:@"ethan.a.arbuckle@gmail.com"]];
     [self presentViewController:email animated:YES completion:nil];
 }
+
 @end

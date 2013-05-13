@@ -246,49 +246,6 @@
     <resources>
         <image name="lines@2x.png" width="19" height="15"/>
     </resources>
-    <classes>
-        <class className="AFImagePager" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AFImagePager.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dataSource"/>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="PostsView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostsView.h"/>
-            <relationships>
-                <relationship kind="action" name="showLeft:"/>
-                <relationship kind="outlet" name="bar" candidateClass="UINavigationBar"/>
-                <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="theTable" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SDSegmentedControl" superclassName="UISegmentedControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SDSegmentedControl.h"/>
-        </class>
-        <class className="SideViewViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SideViewViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="serch" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tablest" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="detailsView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/detailsView.h"/>
-            <relationships>
-                <relationship kind="action" name="close:"/>
-                <relationship kind="action" name="segChange:"/>
-                <relationship kind="outlet" name="pictureView" candidateClass="AFImagePager"/>
-                <relationship kind="outlet" name="scoller" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="segControl" candidateClass="SDSegmentedControl"/>
-                <relationship kind="outlet" name="table" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="text" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -209,7 +209,7 @@ MBProgressHUD *hud;
             noComments.textColor = [UIColor blackColor];
             noComments.textAlignment = NSTextAlignmentCenter;
             noComments.backgroundColor = [UIColor clearColor];
-            noComments.center = self.view.center;
+            noComments.center = self.table.center;
             [self.view addSubview:noComments];
             table.separatorStyle = UITableViewCellSeparatorStyleNone;
         }
@@ -229,10 +229,10 @@ MBProgressHUD *hud;
     if (segControl.selectedSegmentIndex == 1) {
         NSString *str = [comments objectAtIndex:indexPath.section];
         CGSize size = [str sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:UILineBreakModeWordWrap];
-        return size.height + 4;
+        return size.height + 6;
     } else {
         CGSize size = [_textString sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:UILineBreakModeWordWrap];
-        return size.height + 4;
+        return size.height + 6;
     }
 }
 

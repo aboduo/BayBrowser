@@ -92,7 +92,7 @@
             appDelegate.payPressed = YES;
             [appDelegate.deckController toggleLeftView];
         } else {
-            NSString *aboutMessage = @"Created by Ethan Arbuckle\n\nThanks to:\nStig Brautaset(JSON)\nSam Vermette\nMarcus Kida\n Jason Morrissey\n\nBuild Date: May/11/13";
+            NSString *aboutMessage = @"Created by Ethan Arbuckle\n\nThanks to:\nStig Brautaset (JSON)\nSam Vermette\nMarcus Kida\n Jason Morrissey\nKyle Morris\n\nBuild Date: May/12/13";
             NSLog(@"build date");
             UIAlertView *about = [[UIAlertView alloc] initWithTitle:@"BayBrowser 1.0.2" message:aboutMessage delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
             [about show];
