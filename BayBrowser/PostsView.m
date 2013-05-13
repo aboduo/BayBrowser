@@ -93,7 +93,7 @@ BOOL themecolorlight;
         [bannerAd loadRequest:[GADRequest request]];
     } else {
         [self verifyPro];
-    }
+    } 
 }
 
 - (void)tabView:(JMTabView *)tabView didSelectTabAtIndex:(NSUInteger)itemIndex {
