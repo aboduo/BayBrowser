@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "NSString+HTML.h"
 #import "CommentsCell.h"
+#import "AppDelegate.h"
 
 @interface detailsView () {
     NSMutableArray *comments;
@@ -236,4 +237,29 @@ MBProgressHUD *hud;
     }
 }
 
+- (IBAction)addComment:(id)sender {
+    AppDelegate *appd = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    if (appd.authenticated) {
+        UIAlertView *av = [[UIAlertView alloc]initWithTitle:@"Add a Comment" message:@"Type your comment" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+        av.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [av textFieldAtIndex:0].delegate = self;
+        [av show];
+            } else {
+        UIAlertView *noLogin = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You need to login to add a comment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [noLogin show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [alertView dismissWithClickedButtonIndex:1 animated:YES];
+        NSString *rawComment = [alertView textFieldAtIndex:0].text;
+        NSString *comment = [rawComment stringByReplacingOccurrencesOfString:@" " withString:@"&nbsp;"];
+        NSURL *url = [NSURL URLWithString:@"http://thepiratebay.sx/"];
+        AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:comment, @"add_comment", _ID, @"id", nil];
+        [httpClient postPath:@"/ajax_post_comment.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        } failure:nil];
+    }
+}
 @end

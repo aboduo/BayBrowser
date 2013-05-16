@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PostsView.h"
+#import "LoginView.h"
 
 @interface SideViewViewController ()
 
@@ -26,12 +27,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sidebarshadow"]];
-    [shadow setFrame:CGRectMake(118, 0, 160, 480)];
+    [shadow setFrame:CGRectMake(118, 0, 160, _tablest.contentSize.height)];
     [self.view addSubview:shadow];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.tableView setScrollEnabled:NO];
+    [self.tableView setScrollEnabled:YES];
     UIImageView *sbg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sidebarbg"]];
     [sbg setFrame:CGRectMake(0, 0, 161.5, 480)];
     [self.tableView setBackgroundView:sbg];
@@ -62,9 +63,9 @@
         return [objects count];
     } else {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"pro"]) {
-            return 2;
+            return 3;
         } else {
-            return 2;
+            return 3;
         }
     }
 }
@@ -74,9 +75,17 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.textLabel.textColor = [UIColor whiteColor];
     if (indexPath.row == 0) {
-        cell.textLabel.text = @"Feedback/Bugs";
+        AppDelegate *appd = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        if (!appd.authenticated) {
+            cell.textLabel.text = @"Login";
+        } else {
+            cell.textLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
+        }
     }
     if (indexPath.row == 1) {
+        cell.textLabel.text = @"Feedback/Bugs";
+    }
+    if (indexPath.row == 2) {
         cell.textLabel.text = @"About";
     }
     if (indexPath.section == 0) {
@@ -88,12 +97,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
+        if (indexPath.row == 1) {
             appDelegate.payPressed = YES;
             [appDelegate.deckController toggleLeftView];
+        } else if (indexPath.row == 0) {
+            if (!appDelegate.authenticated) {
+                LoginView *login = (LoginView *)[self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+                [self presentViewController:login animated:YES completion:nil];
+            }
         } else {
-            NSString *aboutMessage = @"Created by Ethan Arbuckle\n\nThanks to:\nStig Brautaset (JSON)\nSam Vermette\nMarcus Kida\n Jason Morrissey\nKyle Morris\n\nBuild Date: May/12/13";
-            NSLog(@"build date");
+            NSString *aboutMessage = @"Created by Ethan Arbuckle\n\nThanks to:\nStig Brautaset (JSON)\nSam Vermette\nMarcus Kida\n Jason Morrissey\nKyle Morris\n\nBuild Date: May/16/13";
             UIAlertView *about = [[UIAlertView alloc] initWithTitle:@"BayBrowser 1.0.2" message:aboutMessage delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
             [about show];
         }
@@ -161,6 +174,10 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)refreshTable {
+    [_tablest reloadData];
 }
 
 @end

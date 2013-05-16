@@ -102,7 +102,7 @@ BOOL themecolorlight;
     [UIView commitAnimations];
     [self.view setUserInteractionEnabled:YES];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"pro"]) {
-        [self requestAd];
+     //   [self requestAd];
     } else {
         [self verifyPro];
     }
@@ -543,6 +543,7 @@ BOOL themecolorlight;
     NSString *url = [badurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     detailsView *next = [self.storyboard instantiateViewControllerWithIdentifier:@"details"];
     [next setURL:url];
+    [next setID:[ids objectAtIndex:indexPath.row]];
     [self presentModalViewController:next animated:YES];
     return indexPath;
 }
@@ -574,6 +575,8 @@ BOOL themecolorlight;
         [self feedback];
     }
     appDelegate.reload = NO;
+    UIViewController *leftView = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Side"];
+    appDelegate.deckController.leftController = leftView;
 }
 
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController didOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
@@ -666,7 +669,7 @@ BOOL themecolorlight;
     [self.view addSubview:chromeBar];
     dispatch_async(dispatch_get_main_queue(), ^{
         CGRect sliderFrame2 = CGRectMake(0, 0, 320, 78);
-        JMSlider *slider2 = [JMSlider sliderWithFrame:sliderFrame2 centerTitle:@"more" leftTitle:nil rightTitle:nil delegate:self];
+        __weak JMSlider *slider2 = [JMSlider sliderWithFrame:sliderFrame2 centerTitle:@"more" leftTitle:nil rightTitle:nil delegate:self];
         if (appDelegate.more) {
             [slider2 setCenterExecuteBlock:^{
                 [slider2 setLoading:YES];
@@ -812,6 +815,7 @@ BOOL themecolorlight;
 }
 
 - (void)requestAd {
+    [bannerAd removeFromSuperview];
     bannerAd = [[GADBannerView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - GAD_SIZE_320x50.height, GAD_SIZE_320x50.width, GAD_SIZE_320x50.height)];
     bannerAd.adUnitID = @"a1518868d91e152";
     bannerAd.rootViewController = self;
@@ -820,7 +824,8 @@ BOOL themecolorlight;
 }
 
 - (void)refresh {
-    [self sortBy:(int*)[tabView selectedIndex]];
+    [self sortBy:(int *)[tabView selectedIndex]];
     [refreshC endRefreshing];
 }
+
 @end

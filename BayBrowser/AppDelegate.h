@@ -17,9 +17,13 @@
 @property NSMutableString *QUERY;
 @property NSMutableString *URL;
 @property NSMutableString *label;
+@property NSMutableString *username;
+@property NSMutableString *password;
 @property NSInteger *page;
 @property BOOL more;
 @property BOOL loadingSomething;
 @property BOOL reload;
 @property BOOL payPressed;
+@property BOOL authenticated;
+- (void)login;
 @end

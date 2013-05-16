@@ -15,4 +15,5 @@
 }
 @property IBOutlet UISearchBar *serch;
 @property IBOutlet UITableView *tablest;
+- (void)refreshTable;
 @end
