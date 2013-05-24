@@ -26,13 +26,13 @@
     [self.window.layer setCornerRadius:5.0];
     [self.window.layer setMasksToBounds:YES];
     self.window.layer.opaque = NO;
-//    _authenticated = YES;
     _username = [[NSMutableString alloc] init];
     _password = [[NSMutableString alloc] init];
     _page = 0;
     _reload = NO;
     _payPressed = NO;
     UIViewController *posts = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Posts"];
+  //  UIViewController *posts = [[PostsView alloc] init];
         UIViewController *leftView = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Side"];
     _deckController = [[IIViewDeckController alloc] initWithCenterViewController:posts leftViewController:leftView rightViewController:nil];
     _deckController.rightSize = 100;
@@ -83,12 +83,10 @@
         NSString *response = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         if ([response rangeOfString:@"You have no active torrents."].location != NSNotFound) {
             _authenticated = YES;
-            NSLog(@"logged in");
             UIViewController *leftView = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Side"];
             _deckController.leftController = leftView;
         } else {
             _authenticated = NO;
-            NSLog(@"login failed");
         }
     } failure:nil];
     [operation start];
@@ -97,7 +95,6 @@
 - (void)logout {
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://thepiratebay.sx/logout.php/"]]];
     [operation start];
-    //_authenticated = NO;
 }
 
 @end

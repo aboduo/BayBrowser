@@ -119,6 +119,8 @@ MBProgressHUD *hud;
 - (IBAction)segChange:(id)sender {
     [noComments removeFromSuperview];
     if (segControl.selectedSegmentIndex == 1) {
+        [comments removeAllObjects];
+        [commentTimes removeAllObjects];
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeIndeterminate;
         [self getComments];

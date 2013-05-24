@@ -14,5 +14,4 @@
 @synthesize sizeLabel = _sizeLabel;
 @synthesize uploadedLabel = _uploadedLabel;
 @synthesize descriptionButton = _descriptionButton;
-
 @end

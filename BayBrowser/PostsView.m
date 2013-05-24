@@ -177,7 +177,8 @@ BOOL themecolorlight;
         } else {
             lvalue = [leechers objectAtIndex:indexPath.row];
         }
-        cell.titleLabel.text = [[arrayposts objectAtIndex:indexPath.row] stringByConvertingHTMLToPlainText];
+        NSLog(@"%f, %f, %f, %f", cell.seederslabel.bounds.origin.x, cell.seederslabel.bounds.origin.y, cell.seederslabel.bounds.size.width, cell.seederslabel.bounds.size.height);
+        cell.titleLabel.text = [arrayposts objectAtIndex:indexPath.row];
         cell.seederslabel.text = [NSString stringWithFormat:@"SE: %@ - LE: %@", svalue, lvalue];
         cell.sizeLabel.text = [NSString stringWithFormat:@"%@", [size objectAtIndex:indexPath.row]];
         cell.uploadedLabel.text = [NSString stringWithFormat:@"Uploaded: %@", [uplo objectAtIndex:indexPath.row]];
@@ -244,6 +245,7 @@ BOOL themecolorlight;
             });
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             [slider removeFromSuperview];
+            [chromeBar removeFromSuperview];
             WBErrorNoticeView *notice = [WBErrorNoticeView errorNoticeInView:self.view title:NSLocalizedString(@"Server Error", nil) message:NSLocalizedString(@"Failed to retrieve these posts.", nil)];
             [notice show];
             notice.sticky = YES;
@@ -304,6 +306,7 @@ BOOL themecolorlight;
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             WBErrorNoticeView *notice = [WBErrorNoticeView errorNoticeInView:self.view title:NSLocalizedString(@"Server Error", nil) message:NSLocalizedString(@"Failed to retrieve these posts.", nil)];
             [notice show];
+            [chromeBar removeFromSuperview];
             notice.sticky = YES;
         }];
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
