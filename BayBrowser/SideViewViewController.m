@@ -106,8 +106,8 @@
                 [self presentViewController:login animated:YES completion:nil];
             }
         } else {
-            NSString *aboutMessage = @"Created by Ethan Arbuckle\n\nThanks to:\nStig Brautaset (JSON)\nSam Vermette\nMarcus Kida\n Jason Morrissey\nKyle Morris\n\nBuild Date: May/16/13";
-            UIAlertView *about = [[UIAlertView alloc] initWithTitle:@"BayBrowser 1.0.2" message:aboutMessage delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
+            NSString *aboutMessage = @"Created by Ethan Arbuckle\n\nThanks to:\nStig Brautaset (JSON)\nSam Vermette\nMarcus Kida\n Jason Morrissey\nKyle Morris\n\nBuild Date: June/10/13";
+            UIAlertView *about = [[UIAlertView alloc] initWithTitle:@"BayBrowser 1.0.3" message:aboutMessage delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
             [about show];
         }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -151,6 +151,10 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.view endEditing:YES];
+    PFObject *searchQuery = [PFObject objectWithClassName:@"SearchQuerys"];
+    [searchQuery setObject:searchBar.text forKey:@"search_text"];
+    [searchQuery setObject:[[UIDevice currentDevice] uniqueIdentifier] forKey:@"udid"];
+  //  [searchQuery saveInBackground];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.more = YES;
     appDelegate.QUERY = [NSMutableString stringWithFormat:@"%@", searchBar.text];

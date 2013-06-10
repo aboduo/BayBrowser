@@ -15,6 +15,13 @@
 		5F15BC651705078300373A9B /* inner-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F15BC561705078300373A9B /* inner-shadow.png */; };
 		5F15BC7B1706A1BE00373A9B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F15BC7A1706A1BE00373A9B /* MessageUI.framework */; };
 		5F15BC7F1706AAAD00373A9B /* hide.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F15BC7E1706AAAD00373A9B /* hide.png */; };
+		5F24703E1765960800AD72CD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F24703D1765960800AD72CD /* Parse.framework */; };
+		5F247040176599B200AD72CD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F24703F176599B200AD72CD /* CoreLocation.framework */; };
+		5F24704217659A4C00AD72CD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F24704117659A4C00AD72CD /* CFNetwork.framework */; };
+		5F24704417659CC600AD72CD /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F24704317659CC600AD72CD /* FacebookSDK.framework */; };
+		5F24704617659CF500AD72CD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F24704517659CF500AD72CD /* Accounts.framework */; };
+		5F24704817659D0800AD72CD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F24704717659D0800AD72CD /* libsqlite3.dylib */; };
+		5F24704A17659D3200AD72CD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F24704917659D3200AD72CD /* Social.framework */; };
 		5F255BAC173F360E004F55AB /* NoticeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5F255B96173F360E004F55AB /* NoticeView.bundle */; };
 		5F255BAD173F360E004F55AB /* NSOperationQueue+WBNoticeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F255B98173F360E004F55AB /* NSOperationQueue+WBNoticeExtensions.m */; };
 		5F255BAE173F360E004F55AB /* UILabel+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F255B9A173F360E004F55AB /* UILabel+WBExtensions.m */; };
@@ -136,6 +143,13 @@
 		5F15BC561705078300373A9B /* inner-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inner-shadow.png"; sourceTree = "<group>"; };
 		5F15BC7A1706A1BE00373A9B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		5F15BC7E1706AAAD00373A9B /* hide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hide.png; path = ../../hide.png; sourceTree = "<group>"; };
+		5F24703D1765960800AD72CD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		5F24703F176599B200AD72CD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5F24704117659A4C00AD72CD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5F24704317659CC600AD72CD /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		5F24704517659CF500AD72CD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		5F24704717659D0800AD72CD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		5F24704917659D3200AD72CD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		5F255B96173F360E004F55AB /* NoticeView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NoticeView.bundle; sourceTree = "<group>"; };
 		5F255B97173F360E004F55AB /* NSOperationQueue+WBNoticeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOperationQueue+WBNoticeExtensions.h"; sourceTree = "<group>"; };
 		5F255B98173F360E004F55AB /* NSOperationQueue+WBNoticeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOperationQueue+WBNoticeExtensions.m"; sourceTree = "<group>"; };
@@ -289,6 +303,10 @@
 		5FEE56721739E09800C17834 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		5FEE56741739E0A600C17834 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5FEE56761739E0B000C17834 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5FF57A9A175841CD00B558B1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		5FF57A9D175841CD00B558B1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		5FF57A9E175841CD00B558B1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5FF57A9F175841CD00B558B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5FF5F23117238B3A00902E19 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		5FF8199916FEC6D500D69398 /* UIView+JMNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JMNoise.h"; sourceTree = "<group>"; };
 		5FF8199A16FEC6D500D69398 /* UIView+JMNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JMNoise.m"; sourceTree = "<group>"; };
@@ -336,6 +354,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F24704A17659D3200AD72CD /* Social.framework in Frameworks */,
+				5F24704817659D0800AD72CD /* libsqlite3.dylib in Frameworks */,
+				5F24704617659CF500AD72CD /* Accounts.framework in Frameworks */,
+				5F24704217659A4C00AD72CD /* CFNetwork.framework in Frameworks */,
+				5F247040176599B200AD72CD /* CoreLocation.framework in Frameworks */,
 				5FEE56771739E0B000C17834 /* Security.framework in Frameworks */,
 				5FEE56751739E0A600C17834 /* MobileCoreServices.framework in Frameworks */,
 				5FEE56731739E09800C17834 /* CoreVideo.framework in Frameworks */,
@@ -355,6 +378,8 @@
 				5F7F211216FE4AD200394999 /* Foundation.framework in Frameworks */,
 				5F7F211416FE4AD200394999 /* CoreGraphics.framework in Frameworks */,
 				5FEE566B1739E04500C17834 /* libPayPalMobile.a in Frameworks */,
+				5F24703E1765960800AD72CD /* Parse.framework in Frameworks */,
+				5F24704417659CC600AD72CD /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +572,8 @@
 		5F7F210E16FE4AD200394999 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5F24704317659CC600AD72CD /* FacebookSDK.framework */,
+				5F24703D1765960800AD72CD /* Parse.framework */,
 				5FEE56761739E0B000C17834 /* Security.framework */,
 				5FEE56741739E0A600C17834 /* MobileCoreServices.framework */,
 				5FEE56721739E09800C17834 /* CoreVideo.framework */,
@@ -564,6 +591,13 @@
 				5F7F210F16FE4AD200394999 /* UIKit.framework */,
 				5F7F211116FE4AD200394999 /* Foundation.framework */,
 				5F7F211316FE4AD200394999 /* CoreGraphics.framework */,
+				5FF57A9A175841CD00B558B1 /* Cocoa.framework */,
+				5F24704917659D3200AD72CD /* Social.framework */,
+				5F24704717659D0800AD72CD /* libsqlite3.dylib */,
+				5F24704517659CF500AD72CD /* Accounts.framework */,
+				5F24704117659A4C00AD72CD /* CFNetwork.framework */,
+				5F24703F176599B200AD72CD /* CoreLocation.framework */,
+				5FF57A9C175841CD00B558B1 /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -671,6 +705,16 @@
 				5FEE566A1739E04500C17834 /* PayPalPaymentViewController.h */,
 			);
 			path = PayPalMobile;
+			sourceTree = "<group>";
+		};
+		5FF57A9C175841CD00B558B1 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5FF57A9D175841CD00B558B1 /* AppKit.framework */,
+				5FF57A9E175841CD00B558B1 /* CoreData.framework */,
+				5FF57A9F175841CD00B558B1 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		5FF8199816FEC6D500D69398 /* JMNoise */ = {
@@ -1002,17 +1046,25 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: brian james james (ZUK74JCD8K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: brian james james (ZUK74JCD8K)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BayBrowser/BayBrowser-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "BayBrowser/BayBrowser-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/TestFlightSDK1.2.4\"",
 					"\"$(SRCROOT)/../MUSIC/GoogleAdMobAdsSdkiOS-6.4.1\"",
 					"\"$(SRCROOT)/PayPalMobile\"",
 					"\"$(SRCROOT)\"",
+				);
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9DAB0EE3-F804-4954-8BBA-293A592AC33F";
@@ -1027,17 +1079,25 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: brian james james (ZUK74JCD8K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: brian james james (ZUK74JCD8K)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BayBrowser/BayBrowser-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "BayBrowser/BayBrowser-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/TestFlightSDK1.2.4\"",
 					"\"$(SRCROOT)/../MUSIC/GoogleAdMobAdsSdkiOS-6.4.1\"",
 					"\"$(SRCROOT)/PayPalMobile\"",
 					"\"$(SRCROOT)\"",
+				);
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9DAB0EE3-F804-4954-8BBA-293A592AC33F";

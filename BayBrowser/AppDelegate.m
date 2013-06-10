@@ -40,6 +40,9 @@
     self.window.rootViewController = _deckController;
     [self.window makeKeyAndVisible];
     [self checkForMessages];
+    [Parse setApplicationId:@"mCm7K7CE7bbRPO9x0wbwIKxUXF7ZLczVHuiLsZ89"
+                  clientKey:@"udFG9BAClBk5s6w19paCNM1E59hFr7ffImL5KVDe"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     return YES;
 }
 
@@ -69,6 +72,9 @@
             }
         }
     } failure:nil];
+    [operation setCacheResponseBlock:^NSCachedURLResponse *(NSURLConnection *connection, NSCachedURLResponse *cachedResponse) {
+        return nil;
+    }];
     [operation start];
     PostsView *posts = (PostsView *)_deckController.centerController;
     [posts requestAd];

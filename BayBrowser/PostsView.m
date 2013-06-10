@@ -177,7 +177,6 @@ BOOL themecolorlight;
         } else {
             lvalue = [leechers objectAtIndex:indexPath.row];
         }
-        NSLog(@"%f, %f, %f, %f", cell.seederslabel.bounds.origin.x, cell.seederslabel.bounds.origin.y, cell.seederslabel.bounds.size.width, cell.seederslabel.bounds.size.height);
         cell.titleLabel.text = [arrayposts objectAtIndex:indexPath.row];
         cell.seederslabel.text = [NSString stringWithFormat:@"SE: %@ - LE: %@", svalue, lvalue];
         cell.sizeLabel.text = [NSString stringWithFormat:@"%@", [size objectAtIndex:indexPath.row]];

@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>baybrowser_mac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>5F7F210B16FE4AD200394999</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5FF57A98175841CD00B558B1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
